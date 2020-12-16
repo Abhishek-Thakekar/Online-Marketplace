@@ -41,6 +41,7 @@ userRouter.post('/register',(req,res)=>{
 
 userRouter.post('/login',passport.authenticate('local',{session : false}),(req,res)=>{
     if(req.isAuthenticated()){
+       const {_id} = req.user;
        const token = signToken(_id);
        res.cookie('access_token',token,{httpOnly: true, sameSite:true}); 
        res.status(200).json({isAuthenticated : true,message : {msgBody : "Successfully logged in", msgError: false},user : req.user});
@@ -51,6 +52,7 @@ userRouter.post('/login',passport.authenticate('local',{session : false}),(req,r
 });
 
 userRouter.get('/logout',passport.authenticate('jwt',{session : false}),(req,res)=>{
+    console.log(req);
     res.clearCookie('access_token');
     res.json({user:{username : "", role : ""},success : true});
 });
