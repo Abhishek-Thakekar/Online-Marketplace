@@ -6,9 +6,9 @@ import GoogleLogin from 'react-google-login'
 
 const Register = props=>{
     const [user,setUser] = useState({
-                username: "", email:"", password : "",firstName:"", lastName:"",
+                username: "", email:"", password : "",firstname:"", lastname:"",
                 isOwner:false , profile:"", city:"" , address:"" ,role : "user",
-                                    });
+    });
     const [message,setMessage] = useState(null);
     let timerID = useRef(null);
 
@@ -24,9 +24,9 @@ const Register = props=>{
 
     const resetForm = ()=>{
         setUser({
-            username: "", email:"", password : "",firstName:"", lastName:"",
+            username: "", email:"", password : "",firstname:"", lastname:"",
             isOwner:false , profile:"", city:"" , address:"" ,role : "user",shopName:"noShop"
-                                });
+        });
     }
 
     const onSubmit = e =>{
@@ -95,7 +95,7 @@ const Register = props=>{
 
 <label htmlFor="firstName" className="sr-only">firstName: </label>
                 <input type="text" 
-                       name="firstName"
+                       name="firstname"
                        value={user.firstName}  
                        onChange={onChange} 
                        className="form-control" 
@@ -103,7 +103,7 @@ const Register = props=>{
 
 <label htmlFor="lastName" className="sr-only">lastName: </label>
                 <input type="text" 
-                       name="lastName"
+                       name="lastname"
                        value={user.lastName}  
                        onChange={onChange} 
                        className="form-control" 

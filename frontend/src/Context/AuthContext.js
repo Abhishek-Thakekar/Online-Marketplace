@@ -8,13 +8,13 @@ export default ({children}) =>{
     const [isAuthenticated , setIsAuthenticated] = useState(false);
     const [isLoaded , setIsLoaded] = useState(false);
 
-    // react hook version of componentDidMount
-    useEffect(() => {
-        
+    useEffect(() => {           
+         
         AuthService.isAuthenticated().then(data =>{
             setUser(data.user);
             setIsAuthenticated(data.isAuthenticated);
             setIsLoaded(true);
+            console.log("isloaded");
         });
     }, []);
 
