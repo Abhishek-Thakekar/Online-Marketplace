@@ -39,7 +39,7 @@ export default {
                     if(res.status !== 401)
                         return res.json().then(data => data);
                     else
-                        return { isAuthenticated : false, user : {username:"",email:"",password:"",firstName:"",lastName:"",isOwner:"", profile:"", city:"", address:"",role :"", shopName:"",mybags:"" , transactions:""}};
+                        return { isAuthenticated : false, user : {username:"",email:"",password:"",firstname:"",lastname:"", profile:"",address:"",role :"",cart:"" ,orders:""}};
                 });
     }
 

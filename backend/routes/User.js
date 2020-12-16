@@ -41,6 +41,7 @@ userRouter.post('/register',(req,res)=>{
 
 userRouter.post('/login',passport.authenticate('local',{session : false}),(req,res)=>{
     if(req.isAuthenticated()){
+       const {_id} = req.user;
        const token = signToken(_id);
        res.cookie('access_token',token,{httpOnly: true, sameSite:true}); 
        res.status(200).json({isAuthenticated : true,message : {msgBody : "Successfully logged in", msgError: false},user : req.user});
@@ -87,8 +88,8 @@ userRouter.get('/logout',passport.authenticate('jwt',{session : false}),(req,res
 
 
 userRouter.get('/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
-    const {username,email,firstname,lastname,profile,address,role,cart,orders} = req.user;
-    res.status(200).json({isAuthenticated : true, user : {username,email,firstname,lastname,profile,address,role,cart,orders}});
+    // const {username,email,firstname,lastname,password,profile,address,role,cart,orders} = req.user;
+    res.status(200).json({isAuthenticated : true, user : req.user });
 });
 
 
