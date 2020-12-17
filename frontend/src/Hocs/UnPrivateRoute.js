@@ -4,11 +4,11 @@ import {AuthContext} from '../Context/AuthContext';
 
 const UnPrivateRoute = ({component : Component ,  ...rest}) =>{
     
-    const {isAuthenticated }  = useContext(AuthContext);
+    const {isAuthenticated ,user }  = useContext(AuthContext);
 
     return(
         <Route {...rest} render = {props =>{
-            if (isAuthenticated){
+            if (isAuthenticated && user){
                 return <Redirect to={{ pathname : '/', 
                                         state : {from : props.location} }} />
             }

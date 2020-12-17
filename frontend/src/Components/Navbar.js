@@ -36,9 +36,9 @@ const Navbar = props => {
             <>
                 {
                     user.role === 'admin' ?
-                        <Link to="/shoporders">
+                        <Link to="/admin">
                             <li className="navbar-brand">
-                                ShopOrders
+                                Admin
                         </li>
                         </Link> :
                         null
@@ -90,7 +90,6 @@ const Navbar = props => {
             if (data.success) {
                 setUser(data.user);
                 setIsAuthenticated(false);
-                props.history.push('/');
             }
         });
     }
@@ -101,7 +100,7 @@ const Navbar = props => {
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
-                    {!isAuthenticated ? unauthenticatedNavbar() : authenticatedNavbar()}
+                    {!isAuthenticated || !user ? unauthenticatedNavbar() : authenticatedNavbar()}
 
                 </ul>
 

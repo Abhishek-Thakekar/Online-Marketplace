@@ -1,45 +1,48 @@
 
 export default {
-    login : user =>{
-        // console.log(user);
-        return fetch('/user/login',{
+
+    login : (user) =>{
+        return fetch('/user/login',
+        {
             method : "post",
             body : JSON.stringify(user),
             headers : {
                 'Content-Type' : 'application/json'
-            }
-        }).then(res => {
+            },
+            credentials: "include"
+        }).then(res => {console.log(res.status);
             if(res.status !== 401)
                 return res.json().then(data => data);
             else
-                return { isAuthenticated : false, user : {username: "", email:"", password : "",firstName:"", lastName:"",
-                isOwner:false , profile:"", city:"" , address:"" ,role : "" , shopName:"noShop" , mybags:"" , transactions:""}};
-                // else keep user : null
+                return { isAuthenticated : false,message : {msgBody : "Incorrect username or password", msgError: true}, user : null};
             })
     },
+
     register : user =>{
-        // console.log(user);
         return fetch('/user/register',{
             method : "post",
             body : JSON.stringify(user),
             headers : {
                 'Content-Type' : 'application/json'
-            }
+            },
+            credentials: "include"
         }).then(res => res.json())
           .then(data => data);
     },
+
     logout : ()=>{
-        return fetch('/user/logout')
+        return fetch('/user/logout', {credentials: "include"})
                 .then(res => res.json())
                 .then(data => data);
     },
+    
     isAuthenticated : ()=>{
-        return fetch('/user/authenticated')
+        return fetch('/user/authenticated', {credentials: "include"})
                 .then(res=>{
                     if(res.status !== 401)
                         return res.json().then(data => data);
                     else
-                        return { isAuthenticated : false, user : {username:"",email:"",password:"",firstname:"",lastname:"", profile:"",address:"",role :"",cart:"" ,orders:""}};
+                        return { isAuthenticated : false, user : null};
                 });
     }
 

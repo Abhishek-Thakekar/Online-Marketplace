@@ -25,8 +25,8 @@ const Register = props=>{
     const resetForm = ()=>{
         setUser({
             username: "", email:"", password : "",firstname:"", lastname:"",
-            profile:"", city:"" , address:"" ,role : "user"
-                                });
+            profile:"",  address:"" ,role : "user"                               
+        });
     }
 
     const onSubmit = e =>{
@@ -96,14 +96,14 @@ const Register = props=>{
 <label htmlFor="firstname" className="sr-only">firstname: </label>
                 <input type="text" 
                        name="firstname"
-                       value={user.firstname}  
+                       value={user.firstname}    
                        onChange={onChange} 
                        className="form-control" 
                        placeholder="Enter firstname"/>
 
 <label htmlFor="lastname" className="sr-only">lastname: </label>
                 <input type="text" 
-                       name="lastname"
+                       name="lastname" 
                        value={user.lastname}  
                        onChange={onChange} 
                        className="form-control" 
