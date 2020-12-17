@@ -6,8 +6,8 @@ import GoogleLogin from 'react-google-login'
 
 const Register = props=>{
     const [user,setUser] = useState({
-                username: "", email:"", password : "",firstName:"", lastName:"",
-                isOwner:false , profile:"", city:"" , address:"" ,role : "user",
+                username: "", email:"", password : "",firstname:"", lastname:"",
+                profile:"", address:"" ,role : "user",
                                     });
     const [message,setMessage] = useState(null);
     let timerID = useRef(null);
@@ -24,8 +24,8 @@ const Register = props=>{
 
     const resetForm = ()=>{
         setUser({
-            username: "", email:"", password : "",firstName:"", lastName:"",
-            isOwner:false , profile:"", city:"" , address:"" ,role : "user",shopName:"noShop"
+            username: "", email:"", password : "",firstname:"", lastname:"",
+            profile:"", city:"" , address:"" ,role : "user"
                                 });
     }
 
@@ -93,29 +93,22 @@ const Register = props=>{
                        placeholder="Enter Password"/>
 
 
-<label htmlFor="firstName" className="sr-only">firstName: </label>
+<label htmlFor="firstname" className="sr-only">firstname: </label>
                 <input type="text" 
-                       name="firstName"
-                       value={user.firstName}  
+                       name="firstname"
+                       value={user.firstname}  
                        onChange={onChange} 
                        className="form-control" 
-                       placeholder="Enter firstName"/>
+                       placeholder="Enter firstname"/>
 
-<label htmlFor="lastName" className="sr-only">lastName: </label>
+<label htmlFor="lastname" className="sr-only">lastname: </label>
                 <input type="text" 
-                       name="lastName"
-                       value={user.lastName}  
+                       name="lastname"
+                       value={user.lastname}  
                        onChange={onChange} 
                        className="form-control" 
-                       placeholder="Enter lastName "/>
+                       placeholder="Enter lastname "/>
 
-<label htmlFor="city" className="sr-only">city: </label>
-                <input type="text" 
-                       name="city"
-                       value={user.city}  
-                       onChange={onChange} 
-                       className="form-control" 
-                       placeholder="Enter city "/>
 
 <label htmlFor="address" className="sr-only">address: </label>
                 <input type="text" 

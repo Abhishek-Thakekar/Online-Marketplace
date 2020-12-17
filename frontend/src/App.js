@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Login from './Components/Login';
 import Register from './Components/Register';
 import Home from './Components/Home';
+import Navbar from './Components/Navbar';
+
 
 
 import PrivateRoute from './Hocs/PrivateRoute';
@@ -16,7 +18,8 @@ const App = () =>{
   
   return(
     <Router>
-      <PrivateRoute exact path="/" component={Home} />
+      <Navbar/>
+      <PrivateRoute exact path="/"  roles={["user", "admin"]} component={Home} />
       <UnPrivateRoute path="/login" component={Login} />
       <UnPrivateRoute path="/register" component={Register} />
     </Router>
