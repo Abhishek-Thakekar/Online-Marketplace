@@ -25,11 +25,14 @@ const ProductSchema = new mongoose.Schema({
     },
     sold : {
         type : Number,
-        required : true
+        default : 0
     },
     availability : {
         type : Number,
         required : true
+    },
+    description :{
+        type : String
     },
     transactions : [{
         type : mongoose.Schema.Types.ObjectId,

@@ -3,7 +3,7 @@ const adminRouter = express.Router();
 const passport = require('passport');
 const passportConfig = require('../passport');
 const JWT = require('jsonwebtoken');
-const User = require('../models/User');
+// const User = require('../models/User');
 const Product = require('../models/Product');
 const Order = require('../models/Order');
 
@@ -33,6 +33,8 @@ adminRouter.post('/addProduct', passport.authenticate('jwt', { session: false })
                 console.log(err);
                 res.status(500).json({ message: { msgBody: "Couldn't add product", msgError: true } });
             }
+            else
+                res.status(200).json({ message: { msgBody: "New Product has been added", msgError: false } });
         });
     }
 });
@@ -72,7 +74,15 @@ adminRouter.post('/updateEditProduct', passport.authenticate('jwt', { session: f
             document.price = product.price;
             document.category = product.category;
             document.availability = product.availability;
-            res.status(200).json({ message: { msgBody: "Product info has been updated", msgError: false }, authenticated: true });
+            document.description = product.description;
+            
+            document.save(err =>{
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({ message: { msgBody: "Couldn't edit product", msgError: true } });
+                }
+                res.status(200).json({ message: { msgBody: "Product info has been updated", msgError: false }, authenticated: true });
+            });
         }
         else
             res.status(500).json({ message: { msgBody: "No such product found", msgError: true } });
