@@ -1,6 +1,6 @@
 import React, {useState,useRef,useEffect} from 'react';
-import AuthService from '../Services/AuthService';
-import Message from '../Components/Message';
+import AuthService from '../../Services/AuthService';
+import Message from '../Notify/Message';
 import GoogleLogin from 'react-google-login'
 
 

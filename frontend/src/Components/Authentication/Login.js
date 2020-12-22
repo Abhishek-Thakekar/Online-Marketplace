@@ -1,7 +1,7 @@
 import React, {useState,useContext} from 'react';
-import AuthService from '../Services/AuthService';
-import Message from '../Components/Message';
-import {AuthContext} from '../Context/AuthContext';
+import AuthService from '../../Services/AuthService';
+import Message from '../Notify/Message';
+import {AuthContext} from '../../Context/AuthContext';
 
 const Login = props=>{
     const [user,setUser] = useState({username: "", password : ""});
@@ -9,7 +9,7 @@ const Login = props=>{
     const authContext = useContext(AuthContext);
 
     const onChange = e =>{
-        setUser({...user,[e.target.name] : e.target.value});
+        setUser({...user,[e.target.name] : e.target.value.trim()});
     }
 
     const onSubmit = e =>{

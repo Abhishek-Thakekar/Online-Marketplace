@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../Context/AuthContext';
-import AuthService from '../Services/AuthService';
+import { AuthContext } from '../../Context/AuthContext';
+import AuthService from '../../Services/AuthService';
 
 
 const Navbar = props => {
@@ -44,16 +44,31 @@ const Navbar = props => {
                         null
 
                 }
-                <Link to="/myorders">
-                    <div className="navbar-brand">
-                        MyOrders
-                     </div>
-                </Link>
-                <Link to="/mybag">
-                    <div className="navbar-brand">
-                        MyBag
-                    </div>
-                </Link>
+                {
+                    user.role === 'admin' ?
+                        <Link to="/admin_orders">
+                            <li className="navbar-brand">
+                                Orders
+                            </li>
+                        </Link> :
+                        <Link to="/myorders">
+                            <li className="navbar-brand">
+                                MyOrders
+                            </li>
+                        </Link>
+
+                }
+                {
+                    user.role === 'user' ?
+                        <Link to="/mybag">
+                            <li className="navbar-brand">
+                                Bag
+                        </li>
+                        </Link> :
+                        null
+
+                }
+                
                 <Link to="/">
                     <li className="nav-item nav-link">
                         Home

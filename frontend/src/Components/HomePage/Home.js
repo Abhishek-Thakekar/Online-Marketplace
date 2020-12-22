@@ -1,7 +1,7 @@
 import React, {useState,useContext,useEffect} from 'react';
-import AuthService from '../Services/AuthService';
-import Message from './Message';
-import { AuthContext } from '../Context/AuthContext';
+import AuthService from '../../Services/AuthService';
+import Message from '../Notify/Message';
+import { AuthContext } from '../../Context/AuthContext';
 // import {Link} from 'react-router-dom';
 
 

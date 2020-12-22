@@ -22,8 +22,8 @@ mongoose.connect('mongodb://localhost:27017/OnlineMarketplace' , {useNewUrlParse
 const userRouter = require('./routes/User');
 app.use('/user' , userRouter);
 
-// const shopRouter = require('./routes/Shop');
-// app.use('/shop' , shopRouter);
+const adminRouter = require('./routes/Admin');
+app.use('/admin' , adminRouter);
 
 // const bagRouter = require('./routes/Bag');
 // app.use('/bag' , bagRouter);

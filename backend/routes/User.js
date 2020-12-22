@@ -52,7 +52,7 @@ userRouter.post('/login',passport.authenticate('local',{session : false}),(req,r
 });
 
 userRouter.get('/logout',passport.authenticate('jwt',{session : false}),(req,res)=>{
-    console.log(req);
+    // console.log(req);
     res.clearCookie('access_token');
     res.json({user:null ,success : true});
 });
