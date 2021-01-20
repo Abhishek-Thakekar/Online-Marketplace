@@ -28,9 +28,11 @@ export default {
     },
 
     getEditProduct: (productId) => {
+        console.log("inside admin pro id ",productId);
+        const proId = {productId : productId};
         return fetch('/admin/getEditProduct', {
             method: "post",
-            body: JSON.stringify(productId),
+            body: JSON.stringify(proId),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -60,9 +62,10 @@ export default {
     },
 
     deleteProduct: (productId) => {
+        const proId = {productId : productId};
         return fetch('/admin/deleteProduct', {
             method: "post",
-            body: JSON.stringify(productId),
+            body: JSON.stringify(proId),
             headers: {
                 'Content-Type': 'application/json'
             }

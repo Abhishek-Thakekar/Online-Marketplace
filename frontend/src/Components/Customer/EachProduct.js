@@ -1,32 +1,26 @@
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Message from '../Notify/Message';
-import AdminService from '../../Services/AdminService';
+import CustomerService from '../../Services/CustomerService';
 
-const ProductItem = props => {
+const EachProduct = props => {
 
-    const deleteProduct = {
-        pathname: '/deleteProduct',
-        productId: ""
-    }
+
     const [message, setMessage] = useState(null);
 
-    const handleDelete = () => {
-        // deleteProduct.productId = props.product._id;
-        AdminService.deleteProduct(props.product._id).then(data => {
+    const handleAddToCart = () => {
+        let item = {
+            productId: props.product._id,
+            quantity: 1,
+            suggestion: ""
+        }
+        CustomerService.addToCart(item).then(data => {
             const { message } = data;
             setMessage(message);
         });
     }
 
-    const editProduct = {
-        pathname: '/editProduct',
-        productId: ""
-    }
 
-    const handleEdit = () => {
-        editProduct.productId = props.product._id;
-    }
 
     // const imgPath = "/images/" +props.shopName  + "/" +props.category._id+".jpg";
     // console.log("shopname " , props.shopName);
@@ -37,20 +31,19 @@ const ProductItem = props => {
             <li>
                 {/* <img id="img1" src={imgPath} onError={(e)=>{e.target.src='/images/blank.jpg'}}/> */}
                 {/* <img id="img1" src="/manali.jpg" alt="skate board"></img> */}
+                {
+
+                }
                 <h1> {props.product.productName} </h1>
+                <h3>{props.product.price}</h3>
                 <h5>{props.product.aboutProduct}</h5>
             </li>
 
-            <Link to={editProduct}>
-                <button onClick={handleEdit}>Edit</button>
-            </Link>
+            <button onClick={handleAddToCart}>Add to Cart</button>
 
-            <Link >
-                <button onClick={handleDelete}>Delete</button>
-            </Link>
             <hr />
         </div>
     )
 }
 
-export default ProductItem;
+export default EachProduct;

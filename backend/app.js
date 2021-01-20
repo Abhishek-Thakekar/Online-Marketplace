@@ -25,6 +25,9 @@ app.use('/user' , userRouter);
 const adminRouter = require('./routes/Admin');
 app.use('/admin' , adminRouter);
 
+const customerRouter = require('./routes/Customer');
+app.use('/customer' , customerRouter);
+
 // const bagRouter = require('./routes/Bag');
 // app.use('/bag' , bagRouter);
 

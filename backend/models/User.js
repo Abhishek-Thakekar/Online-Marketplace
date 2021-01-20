@@ -16,17 +16,29 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+var cart = {
+    quantity: {
+        type: Number,
+        default: 1
+    },
+    suggestion :{
+        type : String,
+    },
+    productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' }
+
+}
+
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true
-    }, 
-    
+    },
+
     email: {
         type: String,
         required: true
-    }, 
-    
+    },
+
     password: {
         type: String,
         required: true
@@ -44,12 +56,12 @@ const UserSchema = new mongoose.Schema({
 
     profile: {
         type: String,
-        default :"blank.jpg"
+        default: "blank.jpg"
     },
 
     role: {
         type: String,
-        default : "user"
+        default: "user"
     },
 
     address: {
@@ -57,8 +69,8 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
 
-    cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }] ,
-    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }] 
+    carts: [cart],
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }]
 
 });
 

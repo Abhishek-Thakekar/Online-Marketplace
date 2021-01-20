@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import AdminService from '../../Services/AdminService';
 import Message from '../Notify/Message';
 
 
-
-const AddProduct = (props) => {
-
+const EditProduct = props => {
 
     const [product, setProduct] = useState({
         productName: "", price: null, description: "", availability: null,
@@ -16,6 +14,22 @@ const AddProduct = (props) => {
     let timerID = useRef(null);
 
     useEffect(() => {
+        console.log("pro id 1" ,props.location.productId);
+
+        if (!props.location.productId)
+            props.history.push('/admin');
+        console.log("pro id 2" ,props.location.productId);
+
+        AdminService.getEditProduct(props.location.productId).then(data => {
+            console.log("edit pro fetched data : ", data);
+            const { message } = data;
+            setMessage(message);
+            fillForm(data.product);
+        });
+
+        // console.log("  pathname : ", props.location.pathname)
+        // console.log("params : ", props.match.params);
+        // console.log("location in path : ", props.location);
 
         return () => {
             clearTimeout(timerID);
@@ -26,9 +40,18 @@ const AddProduct = (props) => {
         setProduct({ ...product, [e.target.name]: e.target.value });
     }
 
-    const resetForm = () => {
+    const fillForm = (data) => {
         setProduct({
             ...product,
+            productName: data.productName, price: data.price, description: data.description
+            , availability: data.availability,
+            category: data.category
+
+        });
+    }
+
+    const resetForm = () => {
+        setProduct({
             productName: "", price: null, description: "", availability: null,
             category: ""
         });
@@ -36,16 +59,23 @@ const AddProduct = (props) => {
 
     const onSubmit = e => {
         e.preventDefault();
+        // setProduct({...product , productName : product.productName.trim()});
         if(!product.productName || !product.price || !product.availability || !product.category){
             alert("fill everything");
             return;
         }
-        setProduct({ ...product, productName: product.productName.trim() });
-        // let newobj = product;
-        // newobj.productName = newobj.productName.trim();
-        // console.log("on creating product : ", newobj);
+        let newobj = {}; 
+        newobj.product = product;
+        newobj.product.productName = newobj.product.productName.trim();
+        newobj.productId = props.location.productId;
+        console.log("on updating product : ", newobj);
+        // let productObj = {
+        //     product: newobj,
+        //     cat: props.location.cat,
+        //     oldpro: props.location.pro
+        // };
 
-        AdminService.addProduct(product).then(data => {
+        AdminService.updateEditProduct(newobj).then(data => {
             const { message } = data;
             setMessage(message);
             if (!message.msgError) {
@@ -60,7 +90,6 @@ const AddProduct = (props) => {
     return (
         <div>
             <form onSubmit={onSubmit}>
-
                 <label htmlFor="productName" className="sr-only">productName: </label>
                 <input type="text"
                     name="productName"
@@ -69,13 +98,6 @@ const AddProduct = (props) => {
                     className="form-control"
                     placeholder="Enter product name " />
 
-                <label htmlFor="category" className="sr-only">category: </label>
-                <input type="text"
-                    name="category"
-                    value={product.category}
-                    onChange={onChange}
-                    className="form-control"
-                    placeholder="Enter category name " />
                 {/* <label htmlFor="productImage" className="sr-only">productImage: </label>
                 <input type="file"
                     name="productImage"
@@ -92,7 +114,7 @@ const AddProduct = (props) => {
                     className="form-control"
                     placeholder="Enter product price " />
 
-                <label htmlFor="availability" className="sr-only">availability: </label>
+                <label htmlFor="availability" className="sr-only">product availability: </label>
                 <input type="number"
                     name="availability"
                     value={product.availability}
@@ -100,8 +122,7 @@ const AddProduct = (props) => {
                     className="form-control"
                     placeholder="Enter product availability " />
 
-
-                <label htmlFor="description" className="sr-only">product description: </label>
+                <label htmlFor="description" className="sr-only">Description</label>
                 <input type="text"
                     name="description"
                     value={product.description}
@@ -109,8 +130,16 @@ const AddProduct = (props) => {
                     className="form-control"
                     placeholder="Tell customers about this product" />
 
+                <label htmlFor="category" className="sr-only">category</label>
+                <input type="text"
+                    name="category"
+                    value={product.category}
+                    onChange={onChange}
+                    className="form-control"
+                    placeholder="Tell customers about this product" />
+
                 <button className="btn btn-lg btn-primary btn-block"
-                    type="submit">Save and Create</button>
+                    type="submit">Update product</button>
 
                 <button className="btn btn-lg btn-primary btn-block"
                     onClick={resetForm} type="reset">Reset</button>
@@ -122,4 +151,4 @@ const AddProduct = (props) => {
 }
 
 
-export default AddProduct;
+export default EditProduct;

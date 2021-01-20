@@ -60,9 +60,9 @@ const Navbar = props => {
                 }
                 {
                     user.role === 'user' ?
-                        <Link to="/mybag">
+                        <Link to="/cart">
                             <li className="navbar-brand">
-                                Bag
+                                Cart
                         </li>
                         </Link> :
                         null

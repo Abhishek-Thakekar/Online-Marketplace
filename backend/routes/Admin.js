@@ -44,6 +44,8 @@ adminRouter.post('/addProduct', passport.authenticate('jwt', { session: false })
 // Fetch data
 adminRouter.post('/getEditProduct', passport.authenticate('jwt', { session: false }), (req, res) => {
     const productId = req.body.productId;
+    console.log("product id is ",req.body.productId);
+
     Product.findById({ _id: productId }).exec((err, document) => {
         if (err) {
             console.log(err);
@@ -70,7 +72,7 @@ adminRouter.post('/updateEditProduct', passport.authenticate('jwt', { session: f
             res.status(500).json({ message: { msgBody: "Couldn't edit product", msgError: true } });
         }
         if (document) {
-            document.name = product.name;
+            document.productName = product.productName;
             document.price = product.price;
             document.category = product.category;
             document.availability = product.availability;

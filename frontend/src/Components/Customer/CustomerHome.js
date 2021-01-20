@@ -1,37 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import AdminService from '../../Services/AdminService';
+import React, { useState, useEffect, useContext } from 'react';
+import CustomerService from '../../Services/CustomerService';
+import {AuthContext} from '../../Context/AuthContext';
 import Message from '../Notify/Message';
-import { Link } from 'react-router-dom';
-import ProductItem from './ProductItem';
+// import { Link } from 'react-router-dom';
+import EachProduct from './EachProduct';
 
+const CustomerHome = () =>{
 
-const Admin = (props) => {
-
-    const [products, setProducts] = useState([]);
+    const [products , setProducts] = useState([]);
     const [message, setMessage] = useState(null);
 
+    const {user} = useContext(AuthContext);
+    // console.log("authcontext => ",authContext);
 
-    useEffect(() => {
-        AdminService.getProducts().then(data => {
-            console.log(data.products);
+
+    useEffect(()=>{
+        CustomerService.getProductsToHome().then(data =>{
             setProducts(data.products);
             setMessage(data.message);
-        })
-    }, [products]);
+        });
+    } , []);
 
-
-    return (
-        <div>
-            <h1>Welcome Admin</h1>
-            <Link to="/addProduct">
-                <button>New Product</button>
-            </Link>
+    return(
+<div>
+            <h1>Welcome {user.username}</h1>
+            
             <hr />
             <ul>
                 {
                     (Array.isArray(products) && products.length) ?
                         products.map(product => {
-                            return <ProductItem
+                            return <EachProduct
                                 key={product._id}
                                 product={product}
                                 // history={props.history}
@@ -44,9 +43,8 @@ const Admin = (props) => {
 
             {message ? <Message message={message} /> : null}
         </div>
-
     );
-
 }
 
-export default Admin;
+
+export default CustomerHome;
