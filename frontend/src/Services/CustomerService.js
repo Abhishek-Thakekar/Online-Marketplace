@@ -22,6 +22,17 @@ export default {
             });
     },
 
+    getOrders : () => {
+        return fetch('/customer/myorders')
+            .then(response => {
+                if (response.status !== 401) {
+                    return response.json().then(data => data);
+                }
+                else
+                    return { message: { msgBody: "UnAuthorized", msgError: true } };
+            });
+    },
+
     addToCart: (item) => {
         const obj = {item : item};
         return fetch('/customer/', {
@@ -42,6 +53,40 @@ export default {
     updateCart: (item) => {
         const obj = {item:item};
         return fetch('/customer/cart', {
+            method: "post",
+            body: JSON.stringify(obj),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            if (response.status !== 401) {
+                return response.json().then(data => data);
+            }
+            else
+                return { message: { msgBody: "UnAuthorized", msgError: true } };
+        });
+    },
+
+    addTransaction: (transData) => {
+        console.log("transaction service getMyBagDataOfShop");
+        return fetch('/customer/myorders', {
+            method: "post",
+            body: JSON.stringify(transData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            if (response.status !== 401) {
+                return response.json().then(data => data);
+            }
+            else
+                return { message: { msgBody: "UnAuthorized", msgError: true } };
+        });
+    },
+
+    payment: (obj) => {
+        console.log("transaction service payment");
+        return fetch('/customer/razorpay', {
             method: "post",
             body: JSON.stringify(obj),
             headers: {

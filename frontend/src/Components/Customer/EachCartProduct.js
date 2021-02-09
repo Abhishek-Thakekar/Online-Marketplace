@@ -1,49 +1,141 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Message from '../Notify/Message';
+import React, { useState, useContext, useRef, useEffect } from "react";
+// import { Link } from "react-router-dom";
 import CustomerService from '../../Services/CustomerService';
+import Message from '../Notify/Message';
 
-const EachProduct = props => {
 
 
+
+const EachCartProduct = props => {
+
+    const [flag, setFlag] = useState(false);
     const [message, setMessage] = useState(null);
-
-    // const handleAddToCart = () => {
-    //     let item = {
-    //         productId: props.product._id,
-    //         quantity: 1,
-    //         suggestion: ""
-    //     }
-    //     CustomerService.addToCart(item).then(data => {
-    //         const { message } = data;
-    //         setMessage(message);
-    //     });
-    // }
+    let timerID = useRef(null);
 
 
+    useEffect(() => {
+        return () => {
+            clearTimeout(timerID);
+        }
+    }, []);
 
-    // const imgPath = "/images/" +props.shopName  + "/" +props.category._id+".jpg";
-    // console.log("shopname " , props.shopName);
+    const [item, setItem] = useState({
+        quantity: props.product.quantity,
+        price: props.product.productId.price,
+        suggestion: props.product.suggestion
+    });
+
+    const onEdit = e => {
+        e.preventDefault();
+        setFlag(true);
+    }
+
+    const onDone = e => {
+        e.preventDefault();
+        setFlag(false);
+        console.log("item after done : ", item);
+        let newobj = props.product;
+        newobj.suggestion = item.suggestion;
+        newobj.quantity = item.quantity;
+        console.log("Done Done Done !!!");
+
+        CustomerService.updateCart(newobj).then(data => {
+            const { message } = data;
+            setMessage(message);
+            if (!message.msgError) {
+                timerID = setTimeout(() => {
+                    setMessage(null);
+                    window.location.reload(true);
+                }, 2000);
+            }
+        });
+    }
+
+    const onCancel = e => {
+        e.preventDefault();
+        setFlag(false);
+        setItem({
+            quantity: props.product.quantity,
+            price: props.product.productId.price,
+            suggestion: props.product.suggestion
+        });
+    }
+
+    const onSuggest = e => {
+        e.preventDefault();
+        setItem({
+            ...item,
+            suggestion: e.target.value
+        })
+    }
+
+
+    const onIncrement = e => {
+        e.preventDefault();
+        setItem({
+            ...item,
+            quantity: Number(item.quantity) + 1
+        })
+        // console.log("props in usermybagpro increment : ", props);
+        // props.checkTotal(val , 1);
+    }
+
+    const onDecrement = e => {
+        e.preventDefault();
+        if (item.quantity > 0) {
+            // console.log("props in usermybagpro decrement : ", props.history);
+            // props.checkTotal(val , -1);
+            setItem({
+                ...item,
+                quantity: Number(item.quantity) - 1
+            })
+        }
+
+    }
+
     return (
-        <div >
-            {message ? <Message message={message} /> : null}
+        <React.Fragment>
+            <tr>
+                <td> {props.product.productId.productName} </td>
+                <td> {Number(item.price) * Number(item.quantity)}</td>
+                <td>
+                    {
+                        flag ?
+                            <React.Fragment>
+                                {item.quantity}
+                                <button onClick={onIncrement}>+</button>
+                                <button onClick={onDecrement}>-</button>
+                            </React.Fragment>
+                            : item.quantity
+                    }
+                </td>
+                <td>
+                    {
+                        flag ?
+                            <textarea name="suggest" onChange={onSuggest}>{item.suggestion}</textarea>
+                            : item.suggestion
+                    }
+                </td>
+                <td>
+                    {
+                        flag ?
+                            <React.Fragment>
+                                <form onSubmit={onDone}>
+                                    <button type="submit">Done</button> <button onClick={onCancel}>Cancel</button>
+                                </form>
+                            </React.Fragment>
+                            : <button onClick={onEdit}>Edit</button>
+                    }
+                </td>
 
-            <li>
-                {/* <img id="img1" src={imgPath} onError={(e)=>{e.target.src='/images/blank.jpg'}}/> */}
-                {/* <img id="img1" src="/manali.jpg" alt="skate board"></img> */}
-                {
+            </tr>
+            <div>
+                {message ? <Message message={message} /> : null}
+            </div>
+        </React.Fragment>
+    );
+};
 
-                }
-                <h1> {props.product.productName} </h1>
-                <h3>{props.product.price}</h3>
-                <h5>{props.product.aboutProduct}</h5>
-            </li>
+export default EachCartProduct;
 
-            {/* <button onClick={handleAddToCart}>Add to Cart</button> */}
 
-            <hr />
-        </div>
-    )
-}
-
-export default EachProduct;
