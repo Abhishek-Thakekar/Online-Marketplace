@@ -45,7 +45,7 @@ const ProductItem = props => {
                 <button onClick={handleEdit}>Edit</button>
             </Link>
 
-            <Link >
+            <Link to={deleteProduct}>
                 <button onClick={handleDelete}>Delete</button>
             </Link>
             <hr />

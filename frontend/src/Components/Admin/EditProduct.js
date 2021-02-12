@@ -9,19 +9,17 @@ const EditProduct = props => {
         productName: "", price: null, description: "", availability: null,
         category: ""
     });
+    const [productImage, setProductImage] = useState([]);
     const [message, setMessage] = useState(null);
 
     let timerID = useRef(null);
 
     useEffect(() => {
-        console.log("pro id 1" ,props.location.productId);
 
         if (!props.location.productId)
             props.history.push('/admin');
-        console.log("pro id 2" ,props.location.productId);
 
         AdminService.getEditProduct(props.location.productId).then(data => {
-            console.log("edit pro fetched data : ", data);
             const { message } = data;
             setMessage(message);
             fillForm(data.product);
@@ -40,14 +38,12 @@ const EditProduct = props => {
         setProduct({ ...product, [e.target.name]: e.target.value });
     }
 
-    const fillForm = (data) => {
-        setProduct({
-            ...product,
-            productName: data.productName, price: data.price, description: data.description
-            , availability: data.availability,
-            category: data.category
+    const onFileChange = e => {
+        setProductImage(e.target.files);
+    }
 
-        });
+    const fillForm = (data) => {
+        setProduct(data);
     }
 
     const resetForm = () => {
@@ -59,23 +55,23 @@ const EditProduct = props => {
 
     const onSubmit = e => {
         e.preventDefault();
-        // setProduct({...product , productName : product.productName.trim()});
         if(!product.productName || !product.price || !product.availability || !product.category){
             alert("fill everything");
             return;
         }
-        let newobj = {}; 
-        newobj.product = product;
-        newobj.product.productName = newobj.product.productName.trim();
-        newobj.productId = props.location.productId;
-        console.log("on updating product : ", newobj);
-        // let productObj = {
-        //     product: newobj,
-        //     cat: props.location.cat,
-        //     oldpro: props.location.pro
-        // };
-
-        AdminService.updateEditProduct(newobj).then(data => {
+        const formData = new FormData();
+    
+        for (let i = 0; i < productImage.length; i++) {
+            formData.append(`myFile`, productImage[i]);
+        }
+        formData.append("productName", product.productName.trim());
+        formData.append("price", product.price);
+        formData.append("description", product.description);
+        formData.append("availability", product.availability);
+        formData.append("category", product.category);
+        formData.append("productId", props.location.productId);
+        
+        AdminService.updateEditProduct(formData).then(data => {
             const { message } = data;
             setMessage(message);
             if (!message.msgError) {
@@ -98,13 +94,12 @@ const EditProduct = props => {
                     className="form-control"
                     placeholder="Enter product name " />
 
-                {/* <label htmlFor="productImage" className="sr-only">productImage: </label>
-                <input type="file"
-                    name="productImage"
-                    value={product.productImage}
-                    onChange={onChange}
+                <label htmlFor="productImage" className="sr-only">productImage: </label>
+                <input type="file" multiple
+                    name="myFile"
+                    onChange={onFileChange}
                     className="form-control"
-                    placeholder="Enter product image " /> */}
+                    placeholder="Enter product image " />
 
                 <label htmlFor="price" className="sr-only">productPrice: </label>
                 <input type="number"
@@ -137,7 +132,7 @@ const EditProduct = props => {
                     onChange={onChange}
                     className="form-control"
                     placeholder="Tell customers about this product" />
-
+                
                 <button className="btn btn-lg btn-primary btn-block"
                     type="submit">Update product</button>
 

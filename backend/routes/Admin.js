@@ -6,7 +6,22 @@ const JWT = require('jsonwebtoken');
 // const User = require('../models/User');
 const Product = require('../models/Product');
 const Order = require('../models/Order');
+const fs = require('fs-extra');
+const multer = require("multer");
 
+let upload = multer({
+    storage: multer.diskStorage({
+      destination: (req, file, callback) => {
+        let productId = req.params.productId;
+        let path = `./uploads/${productId}`;
+        fs.mkdirsSync(path);
+        callback(null, path);
+      },
+      filename: (req, file, callback) => {
+        callback(null, file.originalname);
+      }
+    })
+})
 
 // Fetch data of products
 adminRouter.get('/admin', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -16,6 +31,7 @@ adminRouter.get('/admin', passport.authenticate('jwt', { session: false }), (req
             res.status(500).json({ message: { msgBody: "Error has occured", msgError: true } });
         }
         else {
+            console.log("inside admin", document);
             res.status(200).json({ products: document, authenticated: true });
         }
     });
@@ -61,10 +77,9 @@ adminRouter.post('/getEditProduct', passport.authenticate('jwt', { session: fals
 
 
 // Update data
-adminRouter.post('/updateEditProduct', passport.authenticate('jwt', { session: false }), (req, res) => {
-
+adminRouter.post('/updateEditProduct/:productId',upload.array('myFile',10), passport.authenticate('jwt', { session: false }), (req, res) => {
+    const product = req.body;
     const productId = req.body.productId;
-    const product = req.body.product;
 
     Product.findById({ _id: productId }).exec((err, document) => {
         if (err) {

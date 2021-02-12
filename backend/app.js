@@ -1,11 +1,11 @@
 const express = require('express')
 const app = express()
-// const cors = require('cors')
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 
-// app.use(cors({credentials: true, origin: true}))
+app.use(cors({credentials: true, origin: true}))
 app.use(cookieParser())
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}))

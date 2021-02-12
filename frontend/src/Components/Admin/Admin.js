@@ -17,7 +17,7 @@ const Admin = (props) => {
             setProducts(data.products);
             setMessage(data.message);
         })
-    }, [products]);
+    }, []);
 
 
     return (

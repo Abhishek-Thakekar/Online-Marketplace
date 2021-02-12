@@ -45,13 +45,10 @@ export default {
         });
     },
 
-    updateEditProduct: (product) => {
-        return fetch('/admin/updateEditProduct', {
+    updateEditProduct: (formData) => {
+        return fetch('/admin/updateEditProduct/' + formData.get('productId'), {
             method: "post",
-            body: JSON.stringify(product),
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            body: formData,
         }).then(response => {
             if (response.status !== 401) {
                 return response.json().then(data => data);
