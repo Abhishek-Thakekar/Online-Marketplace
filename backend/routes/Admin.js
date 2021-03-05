@@ -9,17 +9,29 @@ const Order = require('../models/Order');
 const fs = require('fs-extra');
 const multer = require("multer");
 
+let count = 1;
 let upload = multer({
     storage: multer.diskStorage({
-      destination: (req, file, callback) => {
-        let productId = req.params.productId;
-        let path = `./uploads/${productId}`;
-        fs.mkdirsSync(path);
-        callback(null, path);
-      },
-      filename: (req, file, callback) => {
-        callback(null, file.originalname);
-      }
+        destination: (req, file, callback) => {
+            let productId = req.params.productId;
+            let path = `../frontend/public/uploads/${productId}`;
+            fs.mkdirsSync(path);
+            callback(null, path);
+        },
+        filename: (req, file, callback) => {
+            // let ext = "";
+            // let  flag=0;
+            // for(let i=0;i<file.originalname.length;i++){
+            //     if(flag==1){
+            //         ext = ext + file,originalname[i];
+            //     }
+            //     if(file.originalname[i]=="."){
+            //         flag=1;
+            //     }
+            // }
+            let lst = file.originalname.split(".");
+            callback(null, String(count++) + "." + lst[1]);
+        }
     })
 })
 
@@ -60,24 +72,29 @@ adminRouter.post('/addProduct', passport.authenticate('jwt', { session: false })
 // Fetch data
 adminRouter.post('/getEditProduct', passport.authenticate('jwt', { session: false }), (req, res) => {
     const productId = req.body.productId;
-    console.log("product id is ",req.body.productId);
+    console.log("product id is getedit=>", req.body.productId);
+    if (!productId) {
+        console.log("ProductId is not defined");
+        res.status(500).json({ message: { msgBody: "Something Went Wrong!", msgError: true } });
+    } else {
 
-    Product.findById({ _id: productId }).exec((err, document) => {
-        if (err) {
-            console.log(err);
-            res.status(500).json({ message: { msgBody: "Couldn't edit product", msgError: true } });
-        }
-        if (document) {
-            res.status(200).json({ product: document, authenticated: true });
-        }
-        else
-            res.status(500).json({ message: { msgBody: "No such product found", msgError: true } });
-    });
+        Product.findById({ _id: productId }).exec((err, document) => {
+            if (err) {
+                console.log(err);
+                res.status(500).json({ message: { msgBody: "Couldn't edit product", msgError: true } });
+            }
+            if (document) {
+                res.status(200).json({ product: document, authenticated: true });
+            }
+            else
+                res.status(500).json({ message: { msgBody: "No such product found", msgError: true } });
+        });
+    }
 });
 
 
 // Update data
-adminRouter.post('/updateEditProduct/:productId',upload.array('myFile',10), passport.authenticate('jwt', { session: false }), (req, res) => {
+adminRouter.post('/updateEditProduct/:productId', upload.array('myFile', 10), passport.authenticate('jwt', { session: false }), (req, res) => {
     const product = req.body;
     const productId = req.body.productId;
 
@@ -92,12 +109,13 @@ adminRouter.post('/updateEditProduct/:productId',upload.array('myFile',10), pass
             document.category = product.category;
             document.availability = product.availability;
             document.description = product.description;
-            
-            document.save(err =>{
+
+            document.save(err => {
                 if (err) {
                     console.log(err);
                     res.status(500).json({ message: { msgBody: "Couldn't edit product", msgError: true } });
                 }
+                count = 1;
                 res.status(200).json({ message: { msgBody: "Product info has been updated", msgError: false }, authenticated: true });
             });
         }
