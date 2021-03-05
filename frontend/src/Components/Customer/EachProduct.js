@@ -38,7 +38,11 @@ const EachProduct = props => {
                 <h3>{props.product.price}</h3>
                 <h5>{props.product.aboutProduct}</h5>
             </li>
-
+            {
+                [1,2,3].map((el) => {
+                    return <img src={`/../../../../backend/uploads/${props.product._id}/${el}.jpg`}/>
+                })
+            }
             <button onClick={handleAddToCart}>Add to Cart</button>
 
             <hr />

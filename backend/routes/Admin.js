@@ -9,16 +9,24 @@ const Order = require('../models/Order');
 const fs = require('fs-extra');
 const multer = require("multer");
 
+
+
+let count = 0;
+
 let upload = multer({
     storage: multer.diskStorage({
       destination: (req, file, callback) => {
         let productId = req.params.productId;
         let path = `./uploads/${productId}`;
+        
+        
         fs.mkdirsSync(path);
+        
         callback(null, path);
       },
       filename: (req, file, callback) => {
-        callback(null, file.originalname);
+        
+        callback(null, String(count++) + '.' + file.originalname.split('.').pop());
       }
     })
 })
