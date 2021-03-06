@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Message from '../Notify/Message';
-import './EachProduct.css';
 import CustomerService from '../../Services/CustomerService';
-import { Zoom } from "react-slideshow-image";
-import 'react-slideshow-image/dist/styles.css';
-
-
+import './EachProduct.css'
+import { Slide , Fade, Zoom} from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css'
 
 const EachProduct = props => {
 
@@ -25,10 +23,8 @@ const EachProduct = props => {
         });
     }
 
-
-
     const imgPath = "/uploads/" + props.product._id + "/";
-    let arr = [1, 2, 3];
+    let arr = [0, 1, 2];
 
     const zoomOutProperties = {
         duration: 3000,
@@ -68,28 +64,14 @@ const EachProduct = props => {
         <div id="rowC">
             {message ? <Message message={message} /> : null}
 
-            {/* <li> */}
                 <div className="App">
                     <Slideshow />
                 </div>
-                {
-                    // arr.map(element => {
-                    //     let newPath = imgPath + element + ".jpg"
-                    //     return (
-                    //         <img id="img1" src={newPath} onError={(e) => { e.target.src = '/blank.jpg' }} />
-
-                    //     )
-                    //     {/* return <img id="img1" src={newPath} onError={(e) => { e.target.src = '/blank.jpg' }} /> */ }
-                    // })
-                }
 
 
-
-                {/* <img id="img1" src={imgPath} alt="skate board"></img> */}
                 <h1> {props.product.productName} </h1>
                 <h3>{props.product.price}</h3>
                 <h5>{props.product.aboutProduct}</h5>
-            {/* </li> */}
 
             <button onClick={handleAddToCart}>Add to Cart</button>
 

@@ -39,6 +39,7 @@ const CustomerHome = () =>{
                         : <p>Nothing to show</p>
                 }
             </ul>
+            
             <br />
 
             {message ? <Message message={message} /> : null}

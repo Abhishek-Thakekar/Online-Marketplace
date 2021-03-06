@@ -9,9 +9,13 @@ const Order = require('../models/Order');
 const fs = require('fs-extra');
 const multer = require("multer");
 
-let count = 1;
+
+
+let count = 0;
+
 let upload = multer({
     storage: multer.diskStorage({
+// <<<<<<< HEAD
         destination: (req, file, callback) => {
             let productId = req.params.productId;
             let path = `../frontend/public/uploads/${productId}`;
@@ -32,6 +36,21 @@ let upload = multer({
             // let lst = file.originalname.split(".");
             callback(null, String(count++) + "." + 'jpg');
         }
+// =======
+    //   destination: (req, file, callback) => {
+    //     let productId = req.params.productId;
+    //     let path =  `../frontend/public/uploads/${productId}`;
+        
+        
+    //     fs.mkdirsSync(path);
+        
+    //     callback(null, path);
+    //   },
+    //   filename: (req, file, callback) => {
+        
+    //     callback(null, String(count++) + '.jpg');
+    //   }
+// >>>>>>> 7df280b9c715a29be763ae2b1f2fcfe6b3b35dcf
     })
 })
 
@@ -116,7 +135,6 @@ adminRouter.post('/updateEditProduct/:productId', upload.array('myFile', 10), pa
                     res.status(500).json({ message: { msgBody: "Couldn't edit product", msgError: true } });
                 }
                 count = 1;
-                res.status(200).json({ message: { msgBody: "Product info has been updated", msgError: false }, authenticated: true });
             });
         }
         else
