@@ -64,6 +64,18 @@ const OrderSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    mapAddress :{
+        type:String,
+        // required:true
+    },
+    latitude : {
+        type:Number,
+        // required:true
+    },
+    longitude : {
+        type:Number,
+        // required:true
+    },
     address : {
         type : String,
         required : true

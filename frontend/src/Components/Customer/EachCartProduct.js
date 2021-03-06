@@ -112,7 +112,7 @@ const EachCartProduct = props => {
                 <td>
                     {
                         flag ?
-                            <textarea name="suggest" onChange={onSuggest}>{item.suggestion}</textarea>
+                            <textarea name="suggestion" onChange={onSuggest}>{item.suggestion}</textarea>
                             : item.suggestion
                     }
                 </td>

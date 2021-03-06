@@ -139,4 +139,17 @@ adminRouter.post('/deleteProduct', passport.authenticate('jwt', { session: false
     });
 });
 
+// Get orders from customers
+adminRouter.get('/admin_orders', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Order.find({}).exec((err, document) => {
+        if (err)
+            res.status(500).json({ message: { msgBody: "Error in showing your orders !!!", msgError: true } });
+        else {
+            res.status(200).json({ data: document, authenticated: true });
+        }
+    });
+})
+
+
+
 module.exports = adminRouter;

@@ -33,6 +33,7 @@ const MyOrders = props => {
         CustomerService.getOrders().then(data =>{
             console.log("orders => ",data);
             setOrders(data.data);
+            setMessage(data.message);
         })
         //     console.log("props history in mybag : " ,props.history);
     }, []);

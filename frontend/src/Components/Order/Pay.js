@@ -188,7 +188,7 @@ const Pay = props => {
                         productName : pro.productId.productName,
                         quantity: pro.quantity,
                         price: pro.productId.price,
-                        suggest: pro.suggest,
+                        suggestion: pro.suggestion,
                     }
                     items.push(item);
                 });
