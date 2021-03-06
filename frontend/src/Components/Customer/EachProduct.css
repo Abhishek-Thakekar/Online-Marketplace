@@ -1,20 +1,16 @@
-img {
+.slide-container img{
     height : 30vh;
-    padding : 5%;
-    margin : 5%;
 }
 
-.slide-container {
-    width : 20vw
-}
-.App img{
-    margin:auto;
-}
-#rowC{
-    margin: 30px;
+.rowC{
+    margin-left: 30px;
     padding :20px;
-    display:inline-block;
+    max-width : 25vw;
     /* flex-direction:row; */
-    vertical-align: top;
+}
 
+@media only screen and (max-width: 900px) {
+    .rowC{
+        max-width : 80vw;
+    }
 }

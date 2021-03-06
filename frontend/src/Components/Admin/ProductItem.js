@@ -2,7 +2,7 @@ import React , {useState} from 'react';
 import { Link } from 'react-router-dom';
 import Message from '../Notify/Message';
 import AdminService from '../../Services/AdminService';
-import './ProductItem.css'
+//import './ProductItem.css'
 import { Slide , Fade, Zoom} from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 
@@ -51,7 +51,7 @@ const ProductItem = props => {
                     arr.map(element => {
                         let newPath = imgPath + element + ".jpg"
                         return (
-                            <img key={element}  src={newPath} onError={(e) => { e.target.src = '/blank.jpg' }} />
+                            <img className="card-img-top" key={element}  src={newPath} onError={(e) => { e.target.src = '/blank.jpg' }} />
 
                         )
                     })
@@ -62,25 +62,22 @@ const ProductItem = props => {
     };
 
     return (
-        <div id="rowC">
+        <div className="rowC card bg-light">
+            <div className="card-body">
             {message ? <Message message={message} /> : null}
             
-            <div className="App">
                 <Slideshow />
-            </div>
-            <li>
-                <h1> {props.product.productName} </h1>
-                <h5>{props.product.aboutProduct}</h5>
-            </li>
+                <h3 className="card-title">{props.product.productName} </h3>
+                <h5 className="card-text">Rs {props.product.price}/-</h5>
 
             <Link to={editProduct}>
-                <button onClick={handleEdit}>Edit</button>
+                <button className="btn bg-warning btn-outline-dark mr-2" onClick={handleEdit}>Edit</button>
             </Link>
 
             <Link to={deleteProduct}>
-                <button onClick={handleDelete}>Delete</button>
+                <button className="btn bg-warning btn-outline-dark" onClick={handleDelete}>Delete</button>
             </Link>
-            <hr />
+            </div>
         </div>
     )
 }

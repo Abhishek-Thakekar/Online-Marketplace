@@ -26,7 +26,7 @@ const CustomerHome = () =>{
             <h1>Welcome {user.username}</h1>
             
             <hr />
-            <ul>
+            <div className="card-deck">
                 {
                     (Array.isArray(products) && products.length) ?
                         products.map(product => {
@@ -38,7 +38,7 @@ const CustomerHome = () =>{
                         })
                         : <p>Nothing to show</p>
                 }
-            </ul>
+            </div>
             
             <br />
 

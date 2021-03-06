@@ -44,7 +44,7 @@ const EachProduct = props => {
                     arr.map(element => {
                         let newPath = imgPath + element + ".jpg"
                         return (
-                            <img key={element}  src={newPath} onError={(e) => { e.target.src = '/blank.jpg' }} />
+                            <img className="card-img-bottom" key={element}  src={newPath} onError={(e) => { e.target.src = '/blank.jpg' }} />
 
                         )
                     })
@@ -61,21 +61,20 @@ const EachProduct = props => {
 
     // console.log("shopname " , props.shopName);
     return (
-        <div id="rowC">
-            {message ? <Message message={message} /> : null}
+        <div className="rowC card bg-light">
+            <div className="card-body">
 
-                <div className="App">
-                    <Slideshow />
-                </div>
+                {message ? <Message message={message} /> : null}
+        
+                <Slideshow />
 
+                <h3 className="card-title">{props.product.productName} </h3>
+                <h5 className="card-text">Rs {props.product.price}/-</h5>
+                <p className="card-text">{props.product.aboutProduct}</p>
 
-                <h1> {props.product.productName} </h1>
-                <h3>{props.product.price}</h3>
-                <h5>{props.product.aboutProduct}</h5>
+                <button className="btn bg-warning btn-outline-dark" onClick={handleAddToCart}>Add to Cart</button>
 
-            <button onClick={handleAddToCart}>Add to Cart</button>
-
-            <hr />
+            </div>
         </div>
     )
 }

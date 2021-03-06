@@ -3,7 +3,7 @@ import AdminService from '../../Services/AdminService';
 import Message from '../Notify/Message';
 import { Link } from 'react-router-dom';
 import ProductItem from './ProductItem';
-
+import '../Customer/EachProduct.css'
 
 const Admin = (props) => {
 
@@ -27,7 +27,7 @@ const Admin = (props) => {
                 <button>New Product</button>
             </Link>
             <hr />
-            <ul>
+            <div className="card-deck">
                 {
                     (Array.isArray(products) && products.length) ?
                         products.map(product => {
@@ -39,9 +39,7 @@ const Admin = (props) => {
                         })
                         : <p>Nothing to show</p>
                 }
-            </ul>
-            <br />
-
+            </div>
             {message ? <Message message={message} /> : null}
         </div>
 
