@@ -62,6 +62,7 @@ const EditProduct = props => {
         const formData = new FormData();
     
         for (let i = 0; i < productImage.length; i++) {
+            console.log("file info => ", productImage[i]);
             formData.append(`myFile`, productImage[i]);
         }
         formData.append("productName", product.productName.trim());
