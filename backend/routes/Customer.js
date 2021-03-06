@@ -188,6 +188,27 @@ customerRouter.post('/razorpay', passport.authenticate('jwt', { session: false }
 });
 
 
+customerRouter.post('/isReceived', passport.authenticate('jwt', { session: false }), (req, res) => {
+
+    const orderId = req.body.orderId;
+    Order.findById({ _id: orderId }).exec((err , document) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json({ message: { msgBody: "Error has occured. Try again.", msgError: true } });
+        }
+        else {
+            document.isReceived = "true";
+            document.save(err => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({ message: { msgBody: "Error has occured.", msgError: true } });
+                }
+                res.status(200).json({ message: { msgBody: "Order has been received", msgError: false }, authenticated: true });
+            });
+            
+        }
+    });
+});
 
 
 

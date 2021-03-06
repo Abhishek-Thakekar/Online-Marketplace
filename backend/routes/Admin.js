@@ -29,8 +29,8 @@ let upload = multer({
             //         flag=1;
             //     }
             // }
-            let lst = file.originalname.split(".");
-            callback(null, String(count++) + "." + lst[1]);
+            // let lst = file.originalname.split(".");
+            callback(null, String(count++) + "." + 'jpg');
         }
     })
 })
@@ -148,7 +148,30 @@ adminRouter.get('/admin_orders', passport.authenticate('jwt', { session: false }
             res.status(200).json({ data: document, authenticated: true });
         }
     });
-})
+});
+
+
+adminRouter.post('/isDelivered', passport.authenticate('jwt', { session: false }), (req, res) => {
+
+    const orderId = req.body.orderId;
+    Order.findById({ _id: orderId }).exec((err , document) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json({ message: { msgBody: "Error has occured. Try again.", msgError: true } });
+        }
+        else {
+            document.isDelivered = "true";
+            document.save(err => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({ message: { msgBody: "Error has occured.", msgError: true } });
+                }
+                res.status(200).json({ message: { msgBody: "Order has been delivered", msgError: false }, authenticated: true });
+            });
+            
+        }
+    });
+});
 
 
 

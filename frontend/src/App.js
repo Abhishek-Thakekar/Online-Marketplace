@@ -5,6 +5,7 @@ import Login from './Components/Authentication/Login';
 import Register from './Components/Authentication/Register';
 import Navbar from './Components/Navigation/Navbar';
 import Admin from './Components/Admin/Admin';
+import Delivery from './Components/Admin/Delivery';
 import AdminOrders from './Components/Admin/AdminOrders';
 import AddProduct from './Components/Admin/AddProduct';
 import EditProduct from './Components/Admin/EditProduct';
@@ -24,6 +25,7 @@ const App = () =>{
       <PrivateRoute exact path="/" roles={["admin", "user"]} component={CustomerHome} />
       <PrivateRoute exact path="/cart" roles={["user"]} component={CustomerCart} />
       <PrivateRoute path="/admin" roles={["admin"]} component={Admin} />
+      <PrivateRoute path="/delivery" roles={["admin"]} component={Delivery} />
       <PrivateRoute path="/admin_orders" roles={["admin"]} component={AdminOrders} />
       <PrivateRoute path="/addProduct" roles={["admin"]} component={AddProduct} />
       <PrivateRoute path="/editProduct" roles={["admin"]} component={EditProduct} />

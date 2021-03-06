@@ -81,11 +81,11 @@ const OrderSchema = new mongoose.Schema({
         required : true
     },
     isDelivered : {
-        type : Boolean,
+        type : String,
         default : false
     },
     isReceived : {
-        type : Boolean,
+        type : String,
         default : false
     },
     date : {

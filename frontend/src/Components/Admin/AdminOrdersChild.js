@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
-// import CustomerService from '../../Services/CustomerService';
+import AdminService from '../../Services/AdminService';
 // import { AuthContext } from '../../Context/AuthContext';
 import Message from '../Notify/Message';
 import AdminOrdersGrandChild from './AdminOrdersGrandChild';
@@ -9,11 +9,11 @@ const AdminOrdersChild = (props) => {
 
     const [message, setMessage] = useState(null);
     const [flag, setFlag] = useState(false);
-
+    // console.log("flag : ",props.transaction.isDelivered);
     let timerID = useRef(null);
 
     useEffect(() => {
-        if(props.transaction.isReceived !== "false"){
+        if (props.transaction.isDelivered !== "false") {
             setFlag(true);
         }
         return () => {
@@ -21,18 +21,16 @@ const AdminOrdersChild = (props) => {
         }
     }, []);
 
-
-    const onReceived = e => {
+    const onDelivered = e => {
         e.preventDefault();
         setFlag(true);
-        // let newObj = {
-        //     date : props.transaction.date , 
-        //     userId : props.transaction.userId
-        // };
-        // TransactionService.isReceived(newObj).then(data =>{
-        //     const {message} = data;
-        //     setMessage(message);
-        // });
+        let newObj = {
+            orderId: props.transaction._id
+        };
+        AdminService.isDelivered(newObj).then(data => {
+            const { message } = data;
+            setMessage(message);
+        });
 
     }
 
@@ -53,31 +51,36 @@ const AdminOrdersChild = (props) => {
                             return <AdminOrdersGrandChild
                                 key={item._id}
                                 item={item}
-                                // history={props.history}
+                            // history={props.history}
                             />
                         })
                         : <p>Nothing to show</p>
                 }
             </table>
             <h3>total : {props.transaction.total}</h3>
-            <h5>Address : {props.transaction.address +" , "+props.transaction.mapAddress } </h5>
+            <h5>Address : {props.transaction.address + " , " + props.transaction.mapAddress} </h5>
             {
-                props.transaction.isDelivered === "true"
-                    ? <React.Fragment>
-                        Order has been delivered =&gt;
-                        {
-                            flag ?
-                            <h5>Order Received. Done with shopping.</h5>
-                            :<button onClick={onReceived}>Click if Order Received ?</button>
+                !flag ?
+                    <React.Fragment>
+                        Order has not been delivered =>
+                        <br></br>
+                        <button onClick={onDelivered}>Delivered ? </button>
+                        <button>Cancel Order</button>
+                        <br>
+                        </br>
+                    </React.Fragment>
 
+                    : <React.Fragment>
+                        Order has been delivered =>
+                    {
+
+                            (props.transaction.isReceived === "true") ?
+                                <h6>Order has been Received by {props.transaction.username}</h6>
+                                : <h6> Order has not been received yet</h6>
                         }
                     </React.Fragment>
-                    : <React.Fragment>
-                        Order has not been delivered =&gt;
-                        <button>Cancel Order</button>
-                    </React.Fragment>
             }
-     
+
             {/* </Link> */}
 
             <hr />

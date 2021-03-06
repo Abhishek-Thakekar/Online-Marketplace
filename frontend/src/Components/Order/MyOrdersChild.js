@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
-// import CustomerService from '../../Services/CustomerService';
+import CustomerService from '../../Services/CustomerService';
 // import { AuthContext } from '../../Context/AuthContext';
 import Message from '../Notify/Message';
 import MyOrdersGrandChild from './MyOrdersGrandChild';
@@ -25,14 +25,13 @@ const MyOrdersChild = (props) => {
     const onReceived = e => {
         e.preventDefault();
         setFlag(true);
-        // let newObj = {
-        //     date : props.transaction.date , 
-        //     userId : props.transaction.userId
-        // };
-        // TransactionService.isReceived(newObj).then(data =>{
-        //     const {message} = data;
-        //     setMessage(message);
-        // });
+        let newObj = {
+            orderId: props.transaction._id
+        };
+        CustomerService.isReceived(newObj).then(data => {
+            const { message } = data;
+            setMessage(message);
+        });
 
     }
 

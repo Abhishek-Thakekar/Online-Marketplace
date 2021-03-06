@@ -86,4 +86,21 @@ export default {
             });
     },
 
+    isDelivered: (newObj) => {
+        console.log("transaction service getMyBagDataOfShop");
+        return fetch('/admin/isDelivered', {
+            method: "post",
+            body: JSON.stringify(newObj),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            if (response.status !== 401) {
+                return response.json().then(data => data);
+            }
+            else
+                return { message: { msgBody: "UnAuthorized", msgError: true } };
+        });
+    },
+
 }
