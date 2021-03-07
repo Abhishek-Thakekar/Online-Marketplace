@@ -2,16 +2,23 @@ import React, { useState, useContext, useRef, useEffect } from "react";
 // import { Link } from "react-router-dom";
 import CustomerService from '../../Services/CustomerService';
 import Message from '../Notify/Message';
-
-
+import { Slide , Fade, Zoom} from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css'
+import './EachCartProduct.css'
 
 
 const EachCartProduct = props => {
 
     const [flag, setFlag] = useState(false);
     const [message, setMessage] = useState(null);
-    let timerID = useRef(null);
 
+    const [item, setItem] = useState({
+        quantity: props.product.quantity,
+        price: props.product.productId.price,
+        suggestion: props.product.suggestion
+    });
+
+    let timerID = useRef(null);
 
     useEffect(() => {
         return () => {
@@ -19,11 +26,36 @@ const EachCartProduct = props => {
         }
     }, []);
 
-    const [item, setItem] = useState({
-        quantity: props.product.quantity,
-        price: props.product.productId.price,
-        suggestion: props.product.suggestion
-    });
+    
+    const imgPath = "/uploads/" + props.product.productId._id + "/";
+    let arr = [0, 1, 2];
+
+    const zoomOutProperties = {
+        duration: 3000,
+        transitionDuration: 500,
+        infinite: true,
+        indicators: true,
+        scale: 0.4,
+        arrows: true
+    };
+
+    const Slideshow = () => {
+        return (
+            <div className="slide-container" >
+                <Zoom {...zoomOutProperties}>
+                    {
+                    arr.map(element => {
+                        let newPath = imgPath + element + ".jpg"
+                        return (
+                            <img className="card-img-top" key={element}  src={newPath} onError={(e) => { e.target.src = '/blank.jpg' }} />
+
+                        )
+                    })
+                    }
+                </Zoom>
+            </div>
+        );
+    };
 
     const onEdit = e => {
         e.preventDefault();
@@ -94,45 +126,42 @@ const EachCartProduct = props => {
     }
 
     return (
-        <React.Fragment>
-            <tr>
-                <td> {props.product.productId.productName} </td>
-                <td> {Number(item.price) * Number(item.quantity)}</td>
-                <td>
+            <div className="rowCart card bg-light">
+                <div className="card-body">
+                    {message ? <Message message={message} /> : null}
+
+                    <Slideshow />
+                    <h3 className="card-title">{props.product.productId.productName}</h3>
+                    <h5 className="card-text">Price - Rs {Number(item.price) * Number(item.quantity)}/-</h5>
+                    <div className="quantity-div">
+                    <span className="card-text mr-3">Quantity - {item.quantity}</span>
                     {
                         flag ?
-                            <React.Fragment>
-                                {item.quantity}
-                                <button onClick={onIncrement}>+</button>
-                                <button onClick={onDecrement}>-</button>
-                            </React.Fragment>
-                            : item.quantity
-                    }
-                </td>
-                <td>
+                            <span className="quantity-buttons">
+                                <button className="btn bg-warning btn-outline-dark rounded-sm mr-2" onClick={onIncrement}>+</button>
+                                <button className="btn bg-warning btn-outline-dark rounded-sm" onClick={onDecrement}>-</button>
+                            </span>
+                            : null
+                    } 
+                    </div>
                     {
                         flag ?
-                            <textarea name="suggestion" onChange={onSuggest}>{item.suggestion}</textarea>
+                            <textarea className="mt-2 mb-2" name="suggestion" onChange={onSuggest}>{item.suggestion}</textarea>
                             : item.suggestion
                     }
-                </td>
-                <td>
+                    <br/>
                     {
                         flag ?
                             <React.Fragment>
                                 <form onSubmit={onDone}>
-                                    <button type="submit">Done</button> <button onClick={onCancel}>Cancel</button>
+                                    <button className="btn bg-warning btn-outline-dark mr-2" type="submit">Done</button> 
+                                    <button className="btn bg-warning btn-outline-dark" onClick={onCancel}>Cancel</button>
                                 </form>
                             </React.Fragment>
-                            : <button onClick={onEdit}>Edit</button>
+                            : <button className="btn bg-warning btn-outline-dark" onClick={onEdit}>Edit</button>
                     }
-                </td>
-
-            </tr>
-            <div>
-                {message ? <Message message={message} /> : null}
+                </div>
             </div>
-        </React.Fragment>
     );
 };
 

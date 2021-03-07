@@ -1,0 +1,29 @@
+.rowCart .slide-container{
+    max-width : 18vw;
+    float: left;
+    margin-right: 5vw;
+    height :40vh;
+}
+.rowCart .slide-container img{
+    max-width : 18vw;
+    max-height : 35vh;
+}
+.quantity-buttons button{
+    width : 40px;
+}
+.rowCart{
+    height :45vh;
+}
+
+@media only screen and (max-width: 600px) {
+    .rowCart .slide-container{
+        max-width : 45vw;
+    }
+    .rowCart .slide-container img{
+        max-width : 90%;
+        max-height : 90%;
+    }
+    .rowCart{
+        height :65vh;
+    }
+}

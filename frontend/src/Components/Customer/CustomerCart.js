@@ -45,33 +45,24 @@ const CustomerHome = () => {
             <h1>Welcome {user.username}</h1>
 
             <hr />
-            <table>
-                <tr>
-                    <th>Item</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Suggestions</th>
-                    <th>Edit</th>
-                </tr>
+            <div className="card-column">
                 {
                     (Array.isArray(products) && products.length) ?
                         products.map(product => {
                             return <EachCartProduct
                                 key={product._id}
                                 product={product}
-                            // history={props.history}
-                            />
-                        })
-                        : <p>Nothing to show</p>
+                                // history={props.history}
+                                />
+                            })
+                            : <p>Nothing to show</p>
                 }
-            </table>
-
-            <br />
-            <h1>Total =&gt;  {total}</h1>
+            </div>
+            <h1 className="ml-4">Total Price : {total}</h1>
             {
                 (total)?
                 <Link to={pay}>
-                    <button>Place Order</button>
+                    <button className="btn bg-warning btn-outline-dark ml-4 mb-3">Place Order</button>
                 </Link> : 
                 <h3>You have empty cart.</h3>
             }

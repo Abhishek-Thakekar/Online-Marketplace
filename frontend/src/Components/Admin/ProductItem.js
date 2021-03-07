@@ -64,7 +64,8 @@ const ProductItem = props => {
     return (
         <div className="rowC card bg-light">
             <div className="card-body">
-            {message ? <Message message={message} /> : null}
+                
+                {message ? <Message message={message} /> : null}
             
                 <Slideshow />
                 <h3 className="card-title">{props.product.productName} </h3>
