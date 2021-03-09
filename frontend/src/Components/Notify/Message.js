@@ -4,11 +4,11 @@ import React from 'react';
 const Message = props => {
 
     const getStyle = (props) =>{
-        let baseClass = "alert ";
+        let baseClass = "btn ";
         if(props.message.msgError)
-            baseClass = baseClass + "alert-danger";
+            baseClass = baseClass + "bg-danger";
         else
-            baseClass = baseClass + "alert-primary";
+            baseClass = baseClass + "bg-primary";
         
         return baseClass + " text-center";
     }

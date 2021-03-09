@@ -1,0 +1,16 @@
+.rowOrder .slide-container{
+    width : 40vw;
+    float :left;
+}
+
+.rowOrderProduct{
+    height : 60vh;
+    width : 40vw;
+}
+.order-image{
+    text-align: center;
+}
+.rowOrderProduct img{
+    height : 40vh;
+    max-width : 100%;
+}

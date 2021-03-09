@@ -47,12 +47,12 @@ const MyOrders = props => {
             <h1>Your Orders</h1>
             <hr />
           
-            <ul className="list-group">
+            <div className="card-column">
                 {
 
                     (Array.isArray(orders) && orders.length) ?
                         orders.map(transaction => {
-                            return <MyOrdersChild
+                            return <MyOrdersChild 
                                 // history = {props.history}
                                 key={transaction._id}
                                 transaction={transaction}
@@ -60,7 +60,7 @@ const MyOrders = props => {
                         })
                         : <p>Nothing to show</p>
                 }
-            </ul>
+            </div>
             
 
         </div>

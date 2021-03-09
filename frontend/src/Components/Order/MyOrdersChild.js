@@ -3,7 +3,16 @@ import CustomerService from '../../Services/CustomerService';
 // import { AuthContext } from '../../Context/AuthContext';
 import Message from '../Notify/Message';
 import MyOrdersGrandChild from './MyOrdersGrandChild';
+import { Slide , Fade, Zoom} from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css'
 
+const zoomOutProperties = {
+    transitionDuration: 300,
+    infinite: false,
+    indicators: true,
+    scale: 0.4,
+    arrows: true
+};
 
 const MyOrdersChild = (props) => {
 
@@ -37,14 +46,10 @@ const MyOrdersChild = (props) => {
 
 
     return (
-        <div>
-            <table>
-                <tr>
-                    <th>Item</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Suggestions</th>
-                </tr>
+        <div className="rowOrder card bg-light">
+            <div className="card-body">
+            <div className="slide-container mr-4">
+                <Slide {...zoomOutProperties}>   
                 {
                     (Array.isArray(props.transaction.items) && props.transaction.items.length) ?
                         props.transaction.items.map(item => {
@@ -56,31 +61,29 @@ const MyOrdersChild = (props) => {
                         })
                         : <p>Nothing to show</p>
                 }
-            </table>
-            <h3>total : {props.transaction.total}</h3>
+                </Slide>
+            </div>
+            <h3>Total Order Price - Rs.{props.transaction.total}/-</h3>
             <h5>Address : {props.transaction.address}</h5>
             {
                 props.transaction.isDelivered === "true"
                     ? <React.Fragment>
-                        Order has been delivered =&gt;
+                        Order has been delivered -&gt;
                         {
                             flag ?
                             <h5>Order Received. Done with shopping.</h5>
-                            :<button onClick={onReceived}>Click if Order Received ?</button>
+                            :<button className="btn bg-warning btn-outline-dark rounded-sm ml-2"  onClick={onReceived}>Click if Order Received ?</button>
 
                         }
                     </React.Fragment>
                     : <React.Fragment>
-                        Order has not been delivered =&gt;
-                        <button>Cancel Order</button>
+                        Order has not been delivered -&gt;
+                        <button className="btn bg-warning btn-outline-dark rounded-sm ml-2" >Cancel Order</button>
                     </React.Fragment>
             }
      
-            {/* </Link> */}
-
-            <hr />
             {message ? <Message message={message} /> : null}
-            <hr />
+            </div>
         </div>
     );
 };
