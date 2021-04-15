@@ -60,18 +60,18 @@ const Navbar = props => {
                 }
                 {
                     user.role === 'user' ?
-                    <>
-                        <Link to="/cart">
-                            <li className="navbar-brand">
-                                Cart
+                        <>
+                            <Link to="/cart">
+                                <li className="navbar-brand">
+                                    Cart
                         </li>
-                        </Link>
-                        <Link to="/">
-                            <li className="navbar-brand">
-                                Home
+                            </Link>
+                            <Link to="/">
+                                <li className="navbar-brand">
+                                    Home
                             </li>
-                        </Link>
-                    </> :
+                            </Link>
+                        </> :
                         null
                 }
 
@@ -85,6 +85,13 @@ const Navbar = props => {
                         null
 
                 }
+
+
+                <Link to="/chatbot">
+                    <li className="navbar-brand">
+                        chatbot
+                        </li>
+                </Link>
 
                 <button type="button"
                     className="btn btn-link nav-item nav-link"

@@ -13,6 +13,7 @@ import CustomerHome from './Components/Customer/CustomerHome';
 import CustomerCart from './Components/Customer/CustomerCart';
 import Pay from './Components/Order/Pay';
 import MyOrders from './Components/Order/MyOrders';
+import RasaWebchat from './Components/ChatBot/RasaWebchat';
 
 
 import PrivateRoute from './Hocs/PrivateRoute';
@@ -23,6 +24,7 @@ const App = () =>{
     <Router>
       <Navbar/>
       <PrivateRoute exact path="/" roles={["admin", "user"]} component={CustomerHome} />
+      <PrivateRoute exact path="/chatbot" roles={["admin", "user"]} component={RasaWebchat} />
       <PrivateRoute exact path="/cart" roles={["user"]} component={CustomerCart} />
       <PrivateRoute path="/admin" roles={["admin"]} component={Admin} />
       <PrivateRoute path="/delivery" roles={["admin"]} component={Delivery} />

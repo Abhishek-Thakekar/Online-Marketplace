@@ -8,8 +8,12 @@ import 'react-slideshow-image/dist/styles.css'
 
 const EachProduct = props => {
 
-
+    // https://127.0.0.1:4500/AR/index.html
     const [message, setMessage] = useState(null);
+    const AR = {
+        pathname : "https://192.168.0.102:4500/AR/index.html?productId="+ props.product._id ,
+        productId : "testing"
+    }
 
     const handleAddToCart = () => {
         let item = {
@@ -73,7 +77,9 @@ const EachProduct = props => {
                 <p className="card-text">{props.product.aboutProduct}</p>
 
                 <button className="btn bg-warning btn-outline-dark" onClick={handleAddToCart}>Add to Cart</button>
-
+                <Link  target="_blank" to={AR}>
+                    <button>AR</button>
+                </Link>
             </div>
         </div>
     )
