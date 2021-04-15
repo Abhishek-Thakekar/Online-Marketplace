@@ -9,6 +9,7 @@ const CustomerHome = () =>{
 
     const [products , setProducts] = useState([]);
     const [message, setMessage] = useState(null);
+    const [productImage, setProductImage] = useState(null);
 
     const {user} = useContext(AuthContext);
     // console.log("authcontext => ",authContext);
@@ -21,11 +22,43 @@ const CustomerHome = () =>{
         });
     } , []);
 
+    const onFileChange = e => {
+        setProductImage(e.target.files);
+    };
+
+    const onImageSubmit = e => {console.log("onimagesubmit");
+        e.preventDefault();
+
+        const formData = new FormData();
+        
+        formData.append(`productImage`, productImage[0]);
+        CustomerService.searchImage(formData).then(data => {
+            console.log("onimagesubmit" , data.productId);
+        });
+    };
+
     return(
-<div>
+        <div>
             <h1>Welcome {user.username}</h1>
             
             <hr />
+
+            <div>
+
+            <form onSubmit={onImageSubmit}>
+                <label htmlFor="productImage" className="sr-only">productImage: </label>
+                <input type="file"
+                    name="productImage"
+                    onChange={onFileChange}
+                    className="form-control"
+                    placeholder="Upload Image " />
+                
+                <button className="btn btn-lg btn-primary btn-block"
+                    type="submit">Search Image</button>
+            </form>
+
+        </div>
+
             <div className="card-deck">
                 {
                     (Array.isArray(products) && products.length) ?

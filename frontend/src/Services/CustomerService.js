@@ -11,6 +11,30 @@ export default {
             });
     },
 
+    getAProduct : (productId) => {
+        return fetch(`/customer/product/${productId}`)
+            .then(response => {
+                    if (response.status !== 401) {
+                    return response.json().then(data => data);
+                }
+                else
+                    return { message: { msgBody: "UnAuthorized", msgError: true } };
+            });
+    },
+
+    searchImage : (formData) => {
+        return fetch('/customer/searchImage', {
+            method: "post",
+            body: formData,
+        }).then(response => {
+            if (response.status !== 401) {
+                return response.json().then(data => data);
+            }
+            else
+                return { message: { msgBody: "UnAuthorized", msgError: true } };
+        });
+    }, 
+
     getProductsToCart : () => {
         return fetch('/customer/cart')
             .then(response => {

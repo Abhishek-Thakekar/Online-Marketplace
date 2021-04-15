@@ -10,6 +10,7 @@ import AdminOrders from './Components/Admin/AdminOrders';
 import AddProduct from './Components/Admin/AddProduct';
 import EditProduct from './Components/Admin/EditProduct';
 import CustomerHome from './Components/Customer/CustomerHome';
+import Product from './Components/Product/Product'
 import CustomerCart from './Components/Customer/CustomerCart';
 import Pay from './Components/Order/Pay';
 import MyOrders from './Components/Order/MyOrders';
@@ -23,6 +24,7 @@ const App = () =>{
     <Router>
       <Navbar/>
       <PrivateRoute exact path="/" roles={["admin", "user"]} component={CustomerHome} />
+      <PrivateRoute exact path="/product/:productId" roles={["user"]} component={Product} />
       <PrivateRoute exact path="/cart" roles={["user"]} component={CustomerCart} />
       <PrivateRoute path="/admin" roles={["admin"]} component={Admin} />
       <PrivateRoute path="/delivery" roles={["admin"]} component={Delivery} />
@@ -34,7 +36,7 @@ const App = () =>{
 
 
 
-      <UnPrivateRoute path="/login" component={Login} />
+      <UnPrivateRoute exact path="/login" component={Login} />
       <UnPrivateRoute path="/register" component={Register} />
     </Router>
   )

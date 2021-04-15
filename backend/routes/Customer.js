@@ -8,8 +8,24 @@ const Product = require('../models/Product');
 const Order = require('../models/Order');
 const Razorpay = require('razorpay');
 const shortid = require('shortid');
+const fs = require('fs-extra');
+const multer = require("multer");
 
+let upload = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, callback) => {
+            let path = `../frontend/public/temp/`;
+            fs.mkdirsSync(path);
+            callback(null, path);
+        },
+        filename: (req, file, callback) => {
+            callback(null, 0 + "." + 'jpg');
+        }
+    })
+})
 
+const commandForQuery = ["C:\\Users\\Admin\\anaconda3\\Scripts\\activate",
+    "python F:\\Online-Marketplace\\img_searcg\\main.py --action query --imPath F:\\Online-Marketplace\\frontend\\public\\temp\\0.jpg"]
 // get products to home
 customerRouter.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
     Product.find({}).exec((err, document) => {
@@ -23,7 +39,34 @@ customerRouter.get('/', passport.authenticate('jwt', { session: false }), (req, 
     });
 });
 
+customerRouter.get('/product/:productId', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const productId = req.params.productId;
+    Product.findById({_id : productId}).exec((err, document) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json({ message: { msgBody: "Couldn't find the product", msgError: true } });
+        }
+        else {
+            res.status(200).json({ product: document, authenticated: true });
+        }
+    });
+});
 
+customerRouter.post('/searchImage', upload.single('productImage'), passport.authenticate('jwt', { session: false }), (req, res) => {
+    const {exec} = require('child_process');
+
+    exec(commandForQuery[0],(error, stdout, stderr) => {
+        if (error) return;
+        if (stderr) return;
+        console.log(0, stdout);
+        exec(commandForQuery[1],(error, stdout, stderr) => {
+                        if (error) return;
+                        if (stderr) return;
+                        console.log(1, stdout);
+                        res.status(200).json({ productId: stdout, authenticated: true });
+        });
+    });
+});
 // cart=>>>>>>>>>
 // get products to cart
 customerRouter.get('/cart', passport.authenticate('jwt', { session: false }), (req, res) => {

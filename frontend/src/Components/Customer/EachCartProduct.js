@@ -2,6 +2,7 @@ import React, { useState, useContext, useRef, useEffect } from "react";
 // import { Link } from "react-router-dom";
 import CustomerService from '../../Services/CustomerService';
 import Message from '../Notify/Message';
+import { Link } from 'react-router-dom';
 import { Slide , Fade, Zoom} from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import './EachCartProduct.css'
@@ -131,7 +132,9 @@ const EachCartProduct = props => {
                     {message ? <Message message={message} /> : null}
 
                     <Slideshow />
+                    <Link to = {`/product/${props.product.productId._id}`} >
                     <h3 className="card-title">{props.product.productId.productName}</h3>
+                    </Link>
                     <h5 className="card-text">Price - Rs {Number(item.price) * Number(item.quantity)}/-</h5>
                     <div className="quantity-div">
                     <span className="card-text mr-3">Quantity - {item.quantity}</span>

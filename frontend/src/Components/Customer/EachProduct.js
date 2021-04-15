@@ -67,8 +67,9 @@ const EachProduct = props => {
                 {message ? <Message message={message} /> : null}
         
                 <Slideshow />
-
-                <h3 className="card-title">{props.product.productName} </h3>
+                <Link to = {`/product/${props.product._id}`} >
+                    <h3 className="card-title">{props.product.productName} </h3>
+                </Link>
                 <h5 className="card-text">Rs {props.product.price}/-</h5>
                 <p className="card-text">{props.product.aboutProduct}</p>
 

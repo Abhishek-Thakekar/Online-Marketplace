@@ -23,34 +23,9 @@ let upload = multer({
             callback(null, path);
         },
         filename: (req, file, callback) => {
-            // let ext = "";
-            // let  flag=0;
-            // for(let i=0;i<file.originalname.length;i++){
-            //     if(flag==1){
-            //         ext = ext + file,originalname[i];
-            //     }
-            //     if(file.originalname[i]=="."){
-            //         flag=1;
-            //     }
-            // }
-            // let lst = file.originalname.split(".");
+
             callback(null, String(count++) + "." + 'jpg');
         }
-// =======
-    //   destination: (req, file, callback) => {
-    //     let productId = req.params.productId;
-    //     let path =  `../frontend/public/uploads/${productId}`;
-        
-        
-    //     fs.mkdirsSync(path);
-        
-    //     callback(null, path);
-    //   },
-    //   filename: (req, file, callback) => {
-        
-    //     callback(null, String(count++) + '.jpg');
-    //   }
-// >>>>>>> 7df280b9c715a29be763ae2b1f2fcfe6b3b35dcf
     })
 })
 
