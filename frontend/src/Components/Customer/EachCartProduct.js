@@ -79,7 +79,7 @@ const EachCartProduct = props => {
                 timerID = setTimeout(() => {
                     setMessage(null);
                     window.location.reload(true);
-                }, 2000);
+                }, 500);
             }
         });
     }
@@ -135,7 +135,7 @@ const EachCartProduct = props => {
                     <Link to = {`/product/${props.product.productId._id}`} >
                     <h3 className="card-title">{props.product.productId.productName}</h3>
                     </Link>
-                    <h5 className="card-text">Price - Rs {Number(item.price) * Number(item.quantity)}/-</h5>
+                    <h5 className="card-text">Price - Rs {window.numberWithCommas(Number(item.price) * Number(item.quantity))}/-</h5>
                     <div className="quantity-div">
                     <span className="card-text mr-3">Quantity - {item.quantity}</span>
                     {

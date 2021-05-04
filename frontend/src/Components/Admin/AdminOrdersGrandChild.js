@@ -23,7 +23,7 @@ const AdminOrdersGrandChild = props => {
         <React.Fragment>
             <tr>
                 <td> {props.item.productName} </td>
-                <td> {props.item.price}</td>
+                <td> {window.numberWithCommas(props.item.price)}</td>
                 <td>{props.item.quantity}</td>
                 <td>{(props.item.suggest)==null? "-" : props.item.suggest}</td>
 

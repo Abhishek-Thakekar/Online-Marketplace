@@ -171,7 +171,7 @@ customerRouter.post('/cart', passport.authenticate('jwt', { session: false }), a
 // orders =>>>>>>>>>>
 // get placed orders
 customerRouter.get('/myorders', passport.authenticate('jwt', { session: false }), (req, res) => {
-    User.findById({ _id: req.user._id }).populate('orders').exec((err, document) => {
+    User.findById({ _id: req.user._id }).populate('orders').sort({date: 'desc'}).exec((err, document) => {
         if (err)
             res.status(500).json({ message: { msgBody: "Error in showing your orders !!!", msgError: true } });
         else

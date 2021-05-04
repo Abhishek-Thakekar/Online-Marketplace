@@ -58,16 +58,16 @@ const AdminOrdersChild = (props) => {
                         : <p>Nothing to show</p>
                 }
             </table>
-            <h3>Total Price : Rs. {props.transaction.total}/-</h3>
+            <h3>Total Price : Rs. {window.numberWithCommas(props.transaction.total)}/-</h3>
             <h5>Address : {props.transaction.address + " , " + props.transaction.mapAddress} </h5>
             <br/>
             {
                 !flag ?
                     <React.Fragment>
-                        Order has not been delivered =>
+                        Order has not been delivered <i className="fas fa-arrow-right"></i>
                         <br></br>
-                        <button onClick={onDelivered}>Delivered ? </button>
-                        <button>Cancel Order</button>
+                        <button onClick={onDelivered} className="btn btn-warning mr-2 mt-2">Order Delivered ? </button>
+                        <button className="btn btn-warning mt-2">Cancel Order</button>
                         <br>
                         </br>
                     </React.Fragment>

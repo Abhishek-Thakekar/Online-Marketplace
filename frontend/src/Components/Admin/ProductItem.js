@@ -69,7 +69,7 @@ const ProductItem = props => {
             
                 <Slideshow />
                 <h3 className="card-title">{props.product.productName} </h3>
-                <h5 className="card-text">Rs {props.product.price}/-</h5>
+                <h5 className="card-text">Rs {window.numberWithCommas(props.product.price)}/-</h5>
 
             <Link to={editProduct}>
                 <button className="btn bg-warning btn-outline-dark mr-2" onClick={handleEdit}>Edit</button>

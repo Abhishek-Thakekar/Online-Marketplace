@@ -58,7 +58,8 @@ const CustomerHome = () => {
                             : <p>Nothing to show</p>
                 }
             </div>
-            <h2 className="mt-2">Total Price - Rs.{total}/-</h2>
+            <h2 className="mt-2">Total Price - Rs.{window.numberWithCommas(total)}
+</h2>
             {
                 (total)?
                 <Link to={pay}>

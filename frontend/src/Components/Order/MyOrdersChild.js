@@ -63,7 +63,7 @@ const MyOrdersChild = (props) => {
                 }
                 </Slide>
             </div>
-            <h3>Total Price- Rs.{props.transaction.total}/-</h3>
+            <h3>Total Price- Rs.{window.numberWithCommas(props.transaction.total)}/-</h3>
             <h5>Address : {props.transaction.address}</h5>
             {
                 props.transaction.isDelivered === "true"

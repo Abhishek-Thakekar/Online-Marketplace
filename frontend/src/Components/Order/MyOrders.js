@@ -32,6 +32,11 @@ const MyOrders = props => {
 
         CustomerService.getOrders().then(data =>{
             console.log("orders => ",data);
+            data.data.sort(function(a,b){
+                // Turn your strings into dates, and then subtract them
+                // to get a value that is either negative, positive, or zero.
+                return new Date(b.date) - new Date(a.date);
+            });
             setOrders(data.data);
             setMessage(data.message);
         })

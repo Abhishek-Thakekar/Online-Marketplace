@@ -32,13 +32,6 @@ const razorPay = (src) => {
 
 const Pay = props => {
 
-    // here are 2 methods of getting MyBag data
-    // 1 . through props.location from usermybagitem
-    // 2 . through req.user.mybags.find(s => s.shopName === shop or s.shopId === shopId)
-    // check what is better ... passing data within components and then to server 
-    //                     or finding user and its mybag in server itself by passing shopId as parameter
-    // 1st case : you are passing all information from frontend to backend
-    // 2nd case : you are finding everything in backend using shopId
     const { user } = useContext(AuthContext);
     
 
@@ -145,7 +138,7 @@ const Pay = props => {
                             resetForm();
                             timerID = setTimeout(() => {
                                 props.history.push('/');
-                            }, 2000)
+                            }, 1000)
                         }
                     });
                 },
@@ -253,23 +246,20 @@ const Pay = props => {
 
 
     return (
-        <div>
-            <h1>Payment is being processed...</h1>
+        <div className="body-div">
+            <h1 className="page-title">Payment</h1>
 
             <form onSubmit={onSubmit}>
                 <div className="form-group">
-                    <label htmlFor="mapAddress" className="label">Map Address: </label>
-                    <input type="text"
-                        readOnly
-                        name="mapAddress"
-                        value={info.mapAddress}
-                        onChange={onChange}
-                        className="form-control"
-                        placeholder="Put nearby locality of delivery address" />
+
+                    <input type="text" readOnly className="input-text disabled mt-3" onChange={onChange} name="mapAddress"
+                           value={info.mapAddress} placeholder="Put nearby locality of delivery address"/>
+                    <br/>
                         {
                         flagMap ?
-                        <button onClick={changeFlagMap}>Close Map</button>
-                        : <button onClick={changeFlagMap}>Open Map</button>
+                        <button onClick={changeFlagMap} className="btn btn-warning ">Close Map</button>
+                        : <button onClick={changeFlagMap} className="btn btn-warning mt-2">
+                            Open Map <i className="fas fa-map-marker-alt"></i></button>
                         }
                 </div>
                 <div>
@@ -284,55 +274,38 @@ const Pay = props => {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="address" className="label">Helping Address: </label>
-                    <input type="text"
-                        name="address"
-                        value={info.address}
-                        onChange={onChange}
-                        className="form-control"
-                        placeholder="Your address " />
+                    <label className="label mt-2">Helping Address- </label><br/>
+                    <input type="text" className="input-text " onChange={onChange} name="address"
+                           placeholder="Your address"/>
 
                 </div>
                 <div className="form-group">
-                    <label htmlFor="paymentType" className="label">Your Payment Method </label>
-                    <span></span>
-                    <select onChange={onChange} name="paymentType">
+                    <label htmlFor="paymentType" className="form-select label">Your Payment Method - </label><br/>
+                    <select onChange={onChange} name="paymentType" className="p-1">
                         <option value="cashOnDelivery">Cash on Delivery</option>
                         <option value="Online">Online</option>
                     </select>
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="phone" className="label">Contact Number </label>
-                    <input type="text"
-                        name="phone"
-                        value={info.phone}
-                        onChange={onChange}
-                        className="form-control"
-                        placeholder="Enter your contact number" />
+                    <label htmlFor="phone" className="label mt-2">Contact Number </label><br/>
+                    <input type="text" className="input-text " onChange={onChange} name="phone"
+                           placeholder="Enter your contact number"/>
                 </div>
-                <button className="btn  btn-primary btn-block"
-                    type="submit">Next</button>
+                <button className="btn  btn-warning mt-2 mr-3"
+                    type="submit">Next <i className="fas fa-arrow-right"></i></button>
 
-                <button className="btn  btn-danger  btn-block"
-                    onClick={resetForm} type="reset">Reset Info</button>
+                <button className="btn  btn-warning mt-2"
+                    onClick={resetForm} type="reset">Reset Info <i className="fas fa-undo-alt"></i></button>
 
             </form>
             <br>
             </br>
             {message ? <Message message={message} /> : null}
-
-            {/* <div>
-                <button className="btn  btn-primary  btn-block"
-                    onClick={displayRazorPay} >
-                        Razorpay
-                </button>
-            </div> */}
-
-            <br></br>
+            <br/>
             <div>
-                <button className="btn  btn-danger  btn-block"
-                    onClick={onCancel} >Cancel</button>
+                <button className="btn btn-danger"
+                    onClick={onCancel} >Cancel <i className="fas fa-times"></i></button>
             </div>
 
         </div >

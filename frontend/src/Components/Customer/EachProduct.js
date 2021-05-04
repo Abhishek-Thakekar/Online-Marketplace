@@ -75,7 +75,7 @@ const EachProduct = props => {
                 <Link to = {`/product/${props.product._id}`} style={{textDecorationColor: '#f0ad4e' }}>
                     <h3 className="card-title">{props.product.productName} </h3>
                 </Link>
-                <h5 className="card-text">Rs {props.product.price}/-</h5>
+                <h5 className="card-text">Rs {window.numberWithCommas(props.product.price)}/-</h5>
                 <p className="card-text">{props.product.aboutProduct}</p>
 
                 <button className="btn bg-warning btn-outline-dark add-to-cart-btn" 
