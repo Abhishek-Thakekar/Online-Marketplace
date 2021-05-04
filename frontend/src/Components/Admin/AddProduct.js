@@ -58,61 +58,41 @@ const AddProduct = (props) => {
     }
 
     return (
-        <div>
+        <div className="body-div">
+            <h1 className="page-title">Add Product</h1>
             <form onSubmit={onSubmit}>
 
-                <label htmlFor="productName" className="sr-only">productName: </label>
+                {/*<label htmlFor="productName" className="sr-only">productName: </label>
                 <input type="text"
                     name="productName"
                     value={product.productName}
                     onChange={onChange}
                     className="form-control"
-                    placeholder="Enter product name " />
+    placeholder="Enter product name " />*/}
+                <input type="text"  className="input-text  mt-3" onChange={onChange} name="productName"
+                   placeholder="Enter product name"/>
+                <br/>
 
-                <label htmlFor="category" className="sr-only">category: </label>
-                <input type="text"
-                    name="category"
-                    value={product.category}
-                    onChange={onChange}
-                    className="form-control"
-                    placeholder="Enter category name " />
-                {/* <label htmlFor="productImage" className="sr-only">productImage: </label>
-                <input type="file"
-                    name="productImage"
-                    value={product.productImage}
-                    onChange={onChange}
-                    className="form-control"
-                    placeholder="Enter product image " /> */}
+                <input type="text"  className="input-text  mt-3" onChange={onChange} name="category"
+                   placeholder="Enter category name"/>
+                <br/>
 
-                <label htmlFor="price" className="sr-only">productPrice: </label>
-                <input type="number"
-                    name="price"
-                    value={product.price}
-                    onChange={onChange}
-                    className="form-control"
-                    placeholder="Enter product price " />
+                <input type="number"  className="input-text  mt-3" onChange={onChange} name="price"
+                   placeholder="Enter product price"/>
+                <br/>
 
-                <label htmlFor="availability" className="sr-only">availability: </label>
-                <input type="number"
-                    name="availability"
-                    value={product.availability}
-                    onChange={onChange}
-                    className="form-control"
-                    placeholder="Enter product availability " />
+                <input type="number"  className="input-text  mt-3" onChange={onChange} name="availability"
+                   placeholder="Enter product availability"/>
+                <br/>
 
-
-                <label htmlFor="description" className="sr-only">product description: </label>
-                <input type="text"
-                    name="description"
-                    value={product.description}
-                    onChange={onChange}
-                    className="form-control"
-                    placeholder="Tell customers about this product" />
-
-                <button className="btn btn-lg btn-primary btn-block"
+                <input type="text"  className="input-text  mt-3" onChange={onChange} name="description"
+                   placeholder="Tell customers about this product"/>
+                <br/>
+                
+                <button className="btn  btn-warning mt-4 mr-3 btn-outline-dark"
                     type="submit">Save and Create</button>
 
-                <button className="btn btn-lg btn-primary btn-block"
+                <button className="btn btn-warning mt-4 btn-outline-dark"
                     onClick={resetForm} type="reset">Reset</button>
 
             </form>

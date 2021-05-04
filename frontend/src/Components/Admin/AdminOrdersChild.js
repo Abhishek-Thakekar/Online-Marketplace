@@ -37,7 +37,8 @@ const AdminOrdersChild = (props) => {
 
     return (
         <div>
-            <h1>Customer : {props.transaction.username}</h1>
+            {console.log(props.transaction)}
+            <h3><span className="text-primary">Customer</span> - <span className="text-warning">{props.transaction.username}</span></h3>
             <table>
                 <tr>
                     <th>Item</th>
@@ -57,8 +58,9 @@ const AdminOrdersChild = (props) => {
                         : <p>Nothing to show</p>
                 }
             </table>
-            <h3>total : {props.transaction.total}</h3>
+            <h3>Total Price : Rs. {props.transaction.total}/-</h3>
             <h5>Address : {props.transaction.address + " , " + props.transaction.mapAddress} </h5>
+            <br/>
             {
                 !flag ?
                     <React.Fragment>
@@ -71,11 +73,11 @@ const AdminOrdersChild = (props) => {
                     </React.Fragment>
 
                     : <React.Fragment>
-                        Order has been delivered =>
+                        Order has been delivered <i className="fas fa-truck text-warning"></i>
                     {
 
                             (props.transaction.isReceived === "true") ?
-                                <h6>Order has been Received by {props.transaction.username}</h6>
+                                <h6>Order has been Received by {props.transaction.username} <i className="fas fa-check text-warning"></i></h6>
                                 : <h6> Order has not been received yet</h6>
                         }
                     </React.Fragment>

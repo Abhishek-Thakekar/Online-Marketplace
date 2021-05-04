@@ -127,7 +127,7 @@ const EachCartProduct = props => {
     }
 
     return (
-            <div className="rowCart card bg-light">
+            <div className="rowCart card bg-light mb-3">
                 <div className="card-body">
                     {message ? <Message message={message} /> : null}
 
@@ -147,21 +147,24 @@ const EachCartProduct = props => {
                             : null
                     } 
                     </div>
-                    {
+                    {/*
                         flag ?
                             <textarea className="mt-2 mb-2" name="suggestion" onChange={onSuggest}>{item.suggestion}</textarea>
                             : item.suggestion
-                    }
+                    */}
                     <br/>
                     {
                         flag ?
                             <React.Fragment>
                                 <form onSubmit={onDone}>
-                                    <button className="btn bg-warning btn-outline-dark mr-2" type="submit">Done</button> 
-                                    <button className="btn bg-warning btn-outline-dark" onClick={onCancel}>Cancel</button>
+                                    <button className="btn bg-warning btn-outline-dark mr-2" type="submit">
+                                        <i className="fas fa-check"></i></button> 
+                                    <button className="btn bg-warning btn-outline-dark" onClick={onCancel}>
+                                        <i className="fas fa-times"></i></button>
                                 </form>
                             </React.Fragment>
-                            : <button className="btn bg-warning btn-outline-dark" onClick={onEdit}>Edit</button>
+                            : <button className="btn bg-warning btn-outline-dark" onClick={onEdit}>
+                                <i className="fas fa-edit"></i> </button>
                     }
                 </div>
             </div>

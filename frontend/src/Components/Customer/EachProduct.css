@@ -1,16 +1,23 @@
 .rowC .slide-container img{
-    height : 30vh;
+    max-height : 30vh;
+}
+.card-title{
+    color : black;
 }
 
 .rowC{
-    margin-left: 30px;
-    padding :20px;
-    max-width : 25vw;
+    padding :0px;
+    max-width : 18vw;
     /* flex-direction:row; */
 }
-
-@media only screen and (max-width: 900px) {
-    .rowC{
-        max-width : 80vw;
-    }
+.add-to-cart-btn{
+    margin-right : 5px;
 }
+@media only screen and (max-width: 600px) {
+    .rowC{
+        max-width : 85vw;
+    }
+    .rowC .slide-container img{
+        max-height : 60vh;
+    }
+} 

@@ -9,13 +9,13 @@ const Order = require('../models/Order');
 const fs = require('fs-extra');
 const multer = require("multer");
 
+const commandForQuery = ["C:\\Users\\Admin\\anaconda3\\Scripts\\activate && python F:\\Online-Marketplace\\img_searcg\\main.py --action input --imPath F:\\Online-Marketplace\\frontend\\public\\uploads\\"]
 
 
 let count = 0;
 
 let upload = multer({
     storage: multer.diskStorage({
-// <<<<<<< HEAD
         destination: (req, file, callback) => {
             let productId = req.params.productId;
             let path = `../frontend/public/uploads/${productId}`;
@@ -29,6 +29,33 @@ let upload = multer({
     })
 })
 
+const addImgToHashTable = (productId) => {
+    const {exec} = require('child_process');
+    const dirPath = "F:\\Online-Marketplace\\frontend\\public\\uploads\\" + productId;
+    
+
+    files = fs.readdirSync(dirPath);
+    let count = 1;
+
+    files.forEach(function(file){
+        let command = commandForQuery[0] + productId + "\\" + file + " --pKey " + productId + "_" + count;
+        count++;
+        exec(command,(error, stdout, stderr) => {
+            console.log("exec");
+            if (error) {
+                console.log("error", error);
+                res.status(500).json({ message: { msgBody: error, msgError: true } });
+            }
+            if (stderr) {
+                console.log("Stderr",stderr);
+                res.status(500).json({ message: { msgBody: stderr, msgError: true } });
+            }
+            console.log(file, command);
+        });
+    });
+
+    
+}
 // Fetch data of products
 adminRouter.get('/admin', passport.authenticate('jwt', { session: false }), (req, res) => {
     Product.find({}).exec((err, document) => {
@@ -92,6 +119,8 @@ adminRouter.post('/updateEditProduct/:productId', upload.array('myFile', 10), pa
     const product = req.body;
     const productId = req.body.productId;
 
+    addImgToHashTable(productId);
+    
     Product.findById({ _id: productId }).exec((err, document) => {
         if (err) {
             console.log(err);
@@ -110,10 +139,11 @@ adminRouter.post('/updateEditProduct/:productId', upload.array('myFile', 10), pa
                     res.status(500).json({ message: { msgBody: "Couldn't edit product", msgError: true } });
                 }
                 count = 1;
+                res.status(200).json({ message: { msgBody: "Product edited ", msgError: true } });
             });
         }
         else
-            res.status(500).json({ message: { msgBody: "No such product found", msgError: true } });
+            res.status(500).json({ message: { msgBody: "No such product found ", msgError: true } });
     });
 });
 

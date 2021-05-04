@@ -41,10 +41,10 @@ const MyOrders = props => {
 
 
     return (
-        <div>
+        <div className="body-div">
             {message ? <Message message={message} /> : null}
 
-            <h1>Your Orders</h1>
+            <h1 className="page-title">Your Orders</h1>
             <hr />
           
             <div className="card-column">

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export default {
 
     getProductsToHome : () => {
@@ -22,11 +24,12 @@ export default {
             });
     },
 
-    searchImage : (formData) => {
+    searchImage : (ImageData) => {
         return fetch('/customer/searchImage', {
             method: "post",
-            body: formData,
+            body: ImageData,
         }).then(response => {
+            console.log(response);
             if (response.status !== 401) {
                 return response.json().then(data => data);
             }

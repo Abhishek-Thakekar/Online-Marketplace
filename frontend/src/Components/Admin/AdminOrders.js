@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AdminService from '../../Services/AdminService';
 import Message from '../Notify/Message';
 import AdminOrdersChild from './AdminOrdersChild';
-
+import './AdminOrders.css'
 
 const AdminOrders = () => {
 
@@ -18,10 +18,10 @@ const AdminOrders = () => {
     }, [])
 
     return (
-        <div>
+        <div className="body-div">
             {message ? <Message message={message} /> : null}
 
-            <h1>Your Orders</h1>
+            <h1 className="page-title">Your Orders</h1>
             <hr />
 
             <ul className="list-group">

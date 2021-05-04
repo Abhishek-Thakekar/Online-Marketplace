@@ -13,4 +13,37 @@
 .rowOrderProduct img{
     height : 40vh;
     max-width : 100%;
+} 
+.rowOrder .card{
+    border: none;
+}
+@media only screen and (max-width: 900px) {
+    .rowOrder .slide-container{
+        width : 50vw;
+    }
+    .rowOrderProduct{
+        height : 40vh;
+        width : 50vw;
+    }
+    .rowOrderProduct img{
+        height : 25vh;
+    }
+    .rowOrder .card-body{
+        padding: 10px;
+    }
+    .rowOrder h3{
+        font-size: 18px;
+        font-family:fantasy;
+        font-weight:bold;
+    }
+    .rowOrder h5{
+        font-size: 16px;
+        font-weight:normal;
+    }
+    .rowOrder h6{
+        font-size: 17px;
+        font-family:cursive;
+        font-weight: bolder;
+        margin-top: 10px;
+    }
 }

@@ -10,6 +10,7 @@ const Razorpay = require('razorpay');
 const shortid = require('shortid');
 const fs = require('fs-extra');
 const multer = require("multer");
+const { type } = require('os');
 
 let upload = multer({
     storage: multer.diskStorage({
@@ -24,8 +25,8 @@ let upload = multer({
     })
 })
 
-const commandForQuery = ["C:\\Users\\Admin\\anaconda3\\Scripts\\activate",
-    "python F:\\Online-Marketplace\\img_searcg\\main.py --action query --imPath F:\\Online-Marketplace\\frontend\\public\\temp\\0.jpg"]
+const commandForQuery = ["C:\\Users\\Admin\\anaconda3\\Scripts\\activate && python F:\\Online-Marketplace\\img_searcg\\main.py --action query --imPath" + 
+                         " F:\\Online-Marketplace\\frontend\\public\\temp\\0.jpg --numResults 1"]
 // get products to home
 customerRouter.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
     Product.find({}).exec((err, document) => {
@@ -54,17 +55,18 @@ customerRouter.get('/product/:productId', passport.authenticate('jwt', { session
 
 customerRouter.post('/searchImage', upload.single('productImage'), passport.authenticate('jwt', { session: false }), (req, res) => {
     const {exec} = require('child_process');
-
     exec(commandForQuery[0],(error, stdout, stderr) => {
-        if (error) return;
-        if (stderr) return;
-        console.log(0, stdout);
-        exec(commandForQuery[1],(error, stdout, stderr) => {
-                        if (error) return;
-                        if (stderr) return;
+                        if (error) {
+                            console.log("error", error);
+                            res.status(500).json({ message: { msgBody: error, msgError: true } });
+                        }
+                        if (stderr) {
+                            console.log("Stderr",stderr);
+                            res.status(500).json({ message: { msgBody: stderr, msgError: true } });
+                        }
+                        stdout = stdout.trim().slice(10, 34);
                         console.log(1, stdout);
                         res.status(200).json({ productId: stdout, authenticated: true });
-        });
     });
 });
 // cart=>>>>>>>>>
@@ -133,7 +135,7 @@ customerRouter.post('/cart', passport.authenticate('jwt', { session: false }), a
     if (item.quantity === 0) {
         console.log("removing...");
         // req.user.carts.pull({productId : item.productId._id});
-        await req.user.carts.filter(element => {
+        req.user.carts.filter(element => {
             console.log(typeof (String(element.productId)) + " && " + typeof (item.productId._id));
             console.log(element.productId + " && " + item.productId._id);
             console.log(String(element.productId) === item.productId._id);

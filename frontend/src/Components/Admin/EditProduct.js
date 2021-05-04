@@ -85,59 +85,42 @@ const EditProduct = props => {
     }
 
     return (
-        <div>
+        <div className="body-div">
+            <h3 className="page-title mt-3">Edit Product</h3>
             <form onSubmit={onSubmit}>
-                <label htmlFor="productName" className="sr-only">productName: </label>
-                <input type="text"
-                    name="productName"
-                    value={product.productName}
-                    onChange={onChange}
-                    className="form-control"
-                    placeholder="Enter product name " />
 
-                <label htmlFor="productImage" className="sr-only">productImage: </label>
-                <input type="file" multiple
-                    name="myFile"
-                    onChange={onFileChange}
-                    className="form-control"
-                    placeholder="Enter product image " />
+                <input type="text"  className="input-text  mt-3" onChange={onChange} name="productName"
+                   placeholder="Enter product name"/>
+                <br/>
 
-                <label htmlFor="price" className="sr-only">productPrice: </label>
-                <input type="number"
-                    name="price"
-                    value={product.price}
-                    onChange={onChange}
-                    className="form-control"
-                    placeholder="Enter product price " />
+                <label htmlFor="productImage" className="btn bg-warning mt-3">
+                    Upload <i className="fas fa-upload"></i>
+                </label>
+                <input type="file"  multiple accept="image/*" id="productImage"
+                       onChange={onChange} name="myFile"
+                       placeholder="Enter product Image"/>
+                <br/>
 
-                <label htmlFor="availability" className="sr-only">product availability: </label>
-                <input type="number"
-                    name="availability"
-                    value={product.availability}
-                    onChange={onChange}
-                    className="form-control"
-                    placeholder="Enter product availability " />
+                <input type="number"  className="input-text  mt-3" onChange={onChange} name="price"
+                   placeholder="Enter product price"/>
+                <br/>
 
-                <label htmlFor="description" className="sr-only">Description</label>
-                <input type="text"
-                    name="description"
-                    value={product.description}
-                    onChange={onChange}
-                    className="form-control"
-                    placeholder="Tell customers about this product" />
+                <input type="number"  className="input-text  mt-3" onChange={onChange} name="availability"
+                   placeholder="Enter product availability"/>
+                <br/>
 
-                <label htmlFor="category" className="sr-only">category</label>
-                <input type="text"
-                    name="category"
-                    value={product.category}
-                    onChange={onChange}
-                    className="form-control"
-                    placeholder="Tell customers about this product" />
+                <input type="number"  className="input-text  mt-3" onChange={onChange} name="description"
+                   placeholder="Tell customers about this product"/>
+                <br/>
+
+                <input type="text"  className="input-text  mt-3" onChange={onChange} name="category"
+                   placeholder="Category"/>
+                <br/>
                 
-                <button className="btn btn-lg btn-primary btn-block"
+                <button className="btn btn-warning mt-4 mr-3" 
                     type="submit">Update product</button>
 
-                <button className="btn btn-lg btn-primary btn-block"
+                <button className="btn btn-warning mt-4"
                     onClick={resetForm} type="reset">Reset</button>
 
             </form>

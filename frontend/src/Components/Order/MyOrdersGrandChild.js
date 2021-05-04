@@ -30,7 +30,7 @@ const MyOrdersGrandChild = props => {
             </div>
             <div>
                 {message ? <Message message={message} /> : null}
-            </div>
+            </div> 
         </div>
     );
 };

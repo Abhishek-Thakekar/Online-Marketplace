@@ -3,7 +3,7 @@ import AdminService from '../../Services/AdminService';
 import Message from '../Notify/Message';
 import { Link } from 'react-router-dom';
 import ProductItem from './ProductItem';
-import '../Customer/EachProduct.css'
+
 
 const Admin = (props) => {
 
@@ -21,10 +21,10 @@ const Admin = (props) => {
 
 
     return (
-        <div>
-            <h1>Welcome Admin</h1>
+        <div className="body-div">
+            <h1 className="page-title">Welcome Admin</h1>
             <Link to="/addProduct">
-                <button>New Product</button>
+                <button className="btn  bg-warning btn-outline-dark">New Product</button>
             </Link>
             <hr />
             <div className="card-deck">

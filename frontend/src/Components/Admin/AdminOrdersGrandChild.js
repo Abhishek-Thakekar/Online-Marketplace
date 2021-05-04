@@ -25,10 +25,7 @@ const AdminOrdersGrandChild = props => {
                 <td> {props.item.productName} </td>
                 <td> {props.item.price}</td>
                 <td>{props.item.quantity}</td>
-                <td>{props.item.suggest}</td>
-                <td>
-                    ...
-                </td>
+                <td>{(props.item.suggest)==null? "-" : props.item.suggest}</td>
 
             </tr>
             <div>

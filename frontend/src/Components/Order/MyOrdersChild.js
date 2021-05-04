@@ -46,9 +46,9 @@ const MyOrdersChild = (props) => {
 
 
     return (
-        <div className="rowOrder card bg-light">
+        <div className="rowOrder card bg-light mb-3">
             <div className="card-body">
-            <div className="slide-container mr-4">
+            <div className="slide-container mr-3">
                 <Slide {...zoomOutProperties}>   
                 {
                     (Array.isArray(props.transaction.items) && props.transaction.items.length) ?
@@ -63,23 +63,23 @@ const MyOrdersChild = (props) => {
                 }
                 </Slide>
             </div>
-            <h3>Total Order Price - Rs.{props.transaction.total}/-</h3>
+            <h3>Total Price- Rs.{props.transaction.total}/-</h3>
             <h5>Address : {props.transaction.address}</h5>
             {
                 props.transaction.isDelivered === "true"
-                    ? <React.Fragment>
-                        Order has been delivered -&gt;
+                    ? <>
+                        <h6>Order has been delivered <i className="fas fa-truck text-warning"></i></h6>
                         {
                             flag ?
-                            <h5>Order Received. Done with shopping.</h5>
+                            <h6>Order Received. Done with shopping <i className="fas fa-check-circle text-warning"></i></h6>
                             :<button className="btn bg-warning btn-outline-dark rounded-sm ml-2"  onClick={onReceived}>Click if Order Received ?</button>
 
                         }
-                    </React.Fragment>
-                    : <React.Fragment>
+                    </>
+                    : <>
                         Order has not been delivered -&gt;
                         <button className="btn bg-warning btn-outline-dark rounded-sm ml-2" >Cancel Order</button>
-                    </React.Fragment>
+                    </>
             }
      
             {message ? <Message message={message} /> : null}

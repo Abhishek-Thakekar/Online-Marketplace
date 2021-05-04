@@ -41,8 +41,8 @@ const CustomerHome = () => {
     }, []);
 
     return (
-        <div>
-            <h1>Welcome {user.username}</h1>
+        <div className="body-div">
+            <h1 className="page-title">Welcome {user.username}</h1>
 
             <hr />
             <div className="card-column">
@@ -58,11 +58,11 @@ const CustomerHome = () => {
                             : <p>Nothing to show</p>
                 }
             </div>
-            <h1 className="ml-4">Total Price : {total}</h1>
+            <h2 className="mt-2">Total Price - Rs.{total}/-</h2>
             {
                 (total)?
                 <Link to={pay}>
-                    <button className="btn bg-warning btn-outline-dark ml-4 mb-3">Place Order</button>
+                    <button className="btn bg-warning btn-outline-dark mb-3">Place Order</button>
                 </Link> : 
                 <h3>You have empty cart.</h3>
             }

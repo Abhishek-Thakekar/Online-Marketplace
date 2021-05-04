@@ -12,19 +12,19 @@ const Navbar = props => {
             <>
                 <Link to="/">
                     <li className="nav-item nav-link">
-                        Home
+                        Home <i className="fas fa-home"></i>
                     </li>
                 </Link>
 
                 <Link to="/login">
                     <li className="nav-item nav-link">
-                        Login
+                        Login <i className="fas fa-sign-in-alt"></i>
                     </li>
                 </Link>
 
                 <Link to="/register">
                     <li className="nav-item nav-link">
-                        Register
+                        Register <i className="fas fa-user-plus"></i>
                     </li>
                 </Link>
             </>
@@ -38,7 +38,7 @@ const Navbar = props => {
                     user.role === 'admin' ?
                         <Link to="/admin">
                             <li className="navbar-brand">
-                                Admin
+                                Admin <i className="fas fa-user-shield"></i>
                         </li>
                         </Link> :
                         null
@@ -48,30 +48,30 @@ const Navbar = props => {
                     user.role === 'admin' ?
                         <Link to="/admin_orders">
                             <li className="navbar-brand">
-                                Orders
+                                Orders <i className="fas fa-gift"></i>
                             </li>
                         </Link> :
                         <Link to="/myorders">
                             <li className="navbar-brand">
-                                MyOrders
+                                MyOrders <i className="fas fa-truck"></i>
                             </li>
                         </Link>
 
                 }
                 {
                     user.role === 'user' ?
-                    <>
-                        <Link to="/cart">
-                            <li className="navbar-brand">
-                                Cart
+                        <>
+                            <Link to="/cart">
+                                <li className="navbar-brand">
+                                    Cart <i className="fas fa-shopping-cart"></i>
                         </li>
-                        </Link>
-                        <Link to="/">
-                            <li className="navbar-brand">
-                                Home
+                            </Link>
+                            <Link to="/">
+                                <li className="navbar-brand">
+                                    Home <i className="fas fa-home"></i>
                             </li>
-                        </Link>
-                    </> :
+                            </Link>
+                        </> :
                         null
                 }
 
@@ -79,18 +79,25 @@ const Navbar = props => {
                     user.role === 'admin' ?
                         <Link to="/delivery">
                             <li className="navbar-brand">
-                                Delivery
+                                Delivery <i className="fas fa-truck"></i>
                         </li>
                         </Link> :
                         null
 
                 }
 
-                <button type="button"
-                    className="btn btn-link nav-item nav-link"
+
+                <Link to="/chatbot">
+                    <li className="navbar-brand">
+                        Chatbot <i className="fas fa-robot"></i>
+                    </li>
+                </Link>
+
+                <Link type="button"
+                    className="btn nav-item nav-link"
                     onClick={onClickLogoutHandler}>
-                    Logout
-                </button>
+                    Logout <i className="fas fa-sign-out-alt"></i>
+                </Link>
 
 
 
@@ -109,10 +116,13 @@ const Navbar = props => {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-sm navbar-dark bg-primary">
 
-
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+            <div className="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul className="navbar-nav mr-auto">
                     {!isAuthenticated || !user ? unauthenticatedNavbar() : authenticatedNavbar()}
 

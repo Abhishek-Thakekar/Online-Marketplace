@@ -2,7 +2,7 @@ import React, {useState,useRef,useEffect} from 'react';
 import AuthService from '../../Services/AuthService';
 import Message from '../Notify/Message';
 import GoogleLogin from 'react-google-login'
-
+import './Register.css'
 
 const Register = props=>{
     const [user,setUser] = useState({
@@ -65,74 +65,47 @@ const Register = props=>{
 
 
     return(
-        <div>
+        <div className="body-div">
             <form onSubmit={onSubmit}>
-                <h3>Please Register</h3>
-                <label htmlFor="username" className="sr-only">Username: </label>
-                <input  type="text" 
-                       name="username" 
-                       value={user.username}
-                       onChange={onChange} 
-                       className="form-control" 
-                       placeholder="Enter Username"/>
+                <h3 className="page-title">Register</h3>
 
-                <label htmlFor="email" className="sr-only">Email: </label>
-                <input readOnly type="text" 
-                       name="email" 
-                       value={user.email}
-                       onChange={onChange} 
-                       className="form-control" 
-                       placeholder="Add & Verify Gmail from below"/>
+                <input type="text"  className="input-text  mt-3" onChange={onChange} name="username"
+                   placeholder="Enter username"/>
+                <br/>
 
-                <label htmlFor="password" className="sr-only">Password: </label>
-                <input type="password" 
-                       name="password"
-                       value={user.password} 
-                       onChange={onChange} 
-                       className="form-control" 
-                       placeholder="Enter Password"/>
+                <input readOnly type="text"  className="input-text  mt-3" onChange={onChange} name="email"
+                   placeholder="Add & Verify Gmail from below"/>
+                <br/>
+
+                <input type="password"  className="input-text  mt-3" onChange={onChange} name="password"
+                   placeholder="Enter Password"/>
+                <br/>
+
+                <input type="text"  className="input-text  mt-3" onChange={onChange} name="firstname"
+                   placeholder="Enter firstname"/>
+                <br/>
 
 
-<label htmlFor="firstname" className="sr-only">firstname: </label>
-                <input type="text" 
-                       name="firstname"
-                       value={user.firstname}    
-                       onChange={onChange} 
-                       className="form-control" 
-                       placeholder="Enter firstname"/>
+                <input type="text"  className="input-text  mt-3" onChange={onChange} name="lastname"
+                   placeholder="Enter lastname"/>
+                <br/>
 
-<label htmlFor="lastname" className="sr-only">lastname: </label>
-                <input type="text" 
-                       name="lastname" 
-                       value={user.lastname}  
-                       onChange={onChange} 
-                       className="form-control" 
-                       placeholder="Enter lastname "/>
+                <input type="text"  className="input-text  mt-3" onChange={onChange} name="address"
+                   placeholder="Enter address"/>
+                <br/>
 
-
-<label htmlFor="address" className="sr-only">address: </label>
-                <input type="text" 
-                       name="address"
-                       value={user.address}  
-                       onChange={onChange} 
-                       className="form-control" 
-                       placeholder="Enter address "/>
-
-
-
-
-                <button className="btn btn-lg btn-primary btn-block" 
+                <button className="btn btn-warning  mt-4 mr-3" 
                         type="submit">Register</button>
 
-                <button className="btn btn-lg btn-primary btn-block" 
+                <button className="btn btn-warning mt-4" 
                         type="reset"  onClick={resetForm}>Reset</button>
             </form>
 
         <div>
-            <h4>Verify and add your gmail from here</h4>
-            <GoogleLogin 
+            <h4 className="page-title mt-3  ">Verify Your Email -</h4>
+            <GoogleLogin className="bg-warning text-dark border-light rounded google-btn"
             clientId = "756272229800-uauh8h5974nv2gm3kf5rmmat9rqg01d6.apps.googleusercontent.com"
-            buttonText = "Register"
+            buttonText = "Verify"
             onSuccess = {responseGoogle}
             onFailure = {responseGoogle}
             cookiePolicy = {'single_host_origin'}>

@@ -30,10 +30,10 @@ const Login = props=>{
 
 
     return(
-        <div>
+        <div className="body-div">
             <form onSubmit={onSubmit}>
-                <h3>Please sign in</h3>
-                <label htmlFor="username" className="sr-only">Username: </label>
+                <h3 className="page-title">Log In</h3>
+                {/* <label htmlFor="username" className="sr-only">Username: </label>
                 <input type="text" 
                        name="username" 
                        onChange={onChange} 
@@ -46,6 +46,14 @@ const Login = props=>{
                        className="form-control" 
                        placeholder="Enter Password"/>
                 <button className="btn btn-lg btn-primary btn-block" 
+                        type="submit">Log in </button>*/}
+                <input type="text"  className="input-text  mt-3" onChange={onChange} name="username"
+                   placeholder="Enter username"/>
+                <br/>
+                <input type="password"  className="input-text  mt-3" onChange={onChange} name="password"
+                   placeholder="Enter password"/>
+                <br/>
+                <button className="btn login-btn btn-warning mt-3" 
                         type="submit">Log in </button>
             </form>
             {message ? <Message message={message}/> : null}
