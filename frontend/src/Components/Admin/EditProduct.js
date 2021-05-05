@@ -121,7 +121,7 @@ const EditProduct = props => {
                     type="submit">Update product</button>
 
                 <button className="btn btn-warning mt-4"
-                    onClick={resetForm} type="reset">Reset</button>
+                    onClick={resetForm} type="reset">Reset <i className="fas fa-undo"></i></button>
 
             </form>
             {message ? <Message message={message} /> : null}

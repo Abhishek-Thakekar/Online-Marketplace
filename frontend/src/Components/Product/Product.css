@@ -1,0 +1,8 @@
+.product-page .card-body{
+    height : 90vh !important; 
+}
+@media only screen and (max-width: 600px){
+    .product-page{
+        margin : 4px;
+    }
+}

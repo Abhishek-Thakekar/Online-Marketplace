@@ -67,7 +67,7 @@ const AdminOrdersChild = (props) => {
                         Order has not been delivered <i className="fas fa-arrow-right"></i>
                         <br></br>
                         <button onClick={onDelivered} className="btn btn-warning mr-2 mt-2">Order Delivered ? </button>
-                        <button className="btn btn-warning mt-2">Cancel Order</button>
+                        <button className="btn btn-warning mt-2">Cancel Order <i className="fas fa-times"></i></button>
                         <br>
                         </br>
                     </React.Fragment>

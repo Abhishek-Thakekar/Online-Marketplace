@@ -90,10 +90,10 @@ const AddProduct = (props) => {
                 <br/>
                 
                 <button className="btn  btn-warning mt-4 mr-3 btn-outline-dark"
-                    type="submit">Save and Create</button>
+                    type="submit">Save and Create <i className="fas fa-save"></i></button>
 
                 <button className="btn btn-warning mt-4 btn-outline-dark"
-                    onClick={resetForm} type="reset">Reset</button>
+                    onClick={resetForm} type="reset">Reset <i className="fas fa-undo"></i></button>
 
             </form>
             {message ? <Message message={message} /> : null}

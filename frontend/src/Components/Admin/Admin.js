@@ -24,7 +24,7 @@ const Admin = (props) => {
         <div className="body-div">
             <h1 className="page-title">Welcome Admin</h1>
             <Link to="/addProduct">
-                <button className="btn  bg-warning btn-outline-dark">New Product</button>
+                <button className="btn  bg-warning btn-outline-dark">New Product <i className="fas fa-plus-circle"></i></button>
             </Link>
             <hr />
             <div className="card-deck">

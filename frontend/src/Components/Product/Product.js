@@ -3,6 +3,7 @@ import CustomerService from '../../Services/CustomerService';
 import Message from '../Notify/Message';
 import { Slide , Fade, Zoom} from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
+import './Product.css'
 
 const Product = (props) => {
     const [product , setProduct] = useState({});
@@ -62,7 +63,7 @@ const Product = (props) => {
     };
 
     return (
-        <div className="rowC card bg-light">
+        <div className="rowCart card bg-light body-div product-page">
         <div className="card-body">
 
             {message ? <Message message={message} /> : null}
@@ -70,10 +71,11 @@ const Product = (props) => {
             <Slideshow />
 
             <h3 className="card-title">{product.productName} </h3>
-            <h5 className="card-text">Rs {product.price}/-</h5>
+            <h5 className="card-text">Rs.{window.numberWithCommas(product.price)}/-</h5>
             <p className="card-text">{product.aboutProduct}</p>
 
-            <button className="btn bg-warning btn-outline-dark" onClick={handleAddToCart}>Add to Cart</button>
+            <button className="btn bg-warning btn-outline-dark" onClick={handleAddToCart}>
+                Add to Cart <i className="fas fa-cart-plus"></i></button>
 
         </div>
         </div>

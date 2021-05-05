@@ -78,10 +78,10 @@ const EachProduct = props => {
                 <h5 className="card-text">Rs {window.numberWithCommas(props.product.price)}/-</h5>
                 <p className="card-text">{props.product.aboutProduct}</p>
 
-                <button className="btn bg-warning btn-outline-dark add-to-cart-btn" 
-                        onClick={handleAddToCart}>Add to Cart</button> 
+                <button className="btn bg-warning btn-outline-dark add-to-cart-btn mr-3" 
+                        onClick={handleAddToCart}>Add to Cart <i className="fas fa-cart-plus"></i></button> 
                 <Link  target="_blank" to={AR}>
-                    <button>AR</button>
+                    <button className="btn bg-warning btn-outline-dark">AR</button>
                 </Link>
 
                 
